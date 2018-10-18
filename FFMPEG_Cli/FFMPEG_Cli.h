@@ -2,7 +2,11 @@
 
 #pragma once
 
+#using <system.drawing.dll>
+
 using namespace System;
+using namespace System::Drawing;
+using namespace System::Drawing::Imaging;
 
 extern "C" {
 #include "include/libavformat\avformat.h"
@@ -21,7 +25,8 @@ namespace FFMPEG_Cli {
 
 			///Data size
 			int audio_size = 0;
-			array<byte>^ data;
+			System::Drawing::Bitmap^ video_data;
+			array<int>^ audio_data;
 
 			String^ formatName = "";
 	};
@@ -46,6 +51,5 @@ namespace FFMPEG_Cli {
 	public: video_info ^ OpenVideo(System::String^ FilePath);
 	public: frame_data ^ GetNextFrame();
 	public: int Close();
-			//public: int decode_packet(int *got_frame, int cached);
 	};
 }

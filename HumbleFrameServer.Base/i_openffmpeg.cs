@@ -35,12 +35,6 @@ namespace HumbleFrameServer.Base
                 IsRequired = false,
                 Value = -1,
                 Description = "Duration in frames (0 = full video)"
-            }},
-            {"fps", new NodeParameter(){
-                Type = NodeParameterType.Decimal,
-                IsRequired = false,
-                Value = 25.0M,
-                Description = "FPS (25)"
             }}
         };
 
@@ -75,7 +69,7 @@ namespace HumbleFrameServer.Base
             DataPacket result = new DataPacket() { Data = null };
 
             frame_data frame_Data = _ffmpeg.GetNextFrame();
-            while (frame_Data != null && frame_Data.data == null)
+            while (frame_Data != null && frame_Data.audio_data == null && frame_Data.video_data == null)
             {
                 frame_Data = _ffmpeg.GetNextFrame();
             }
@@ -85,23 +79,12 @@ namespace HumbleFrameServer.Base
                 if (frame_Data.is_video)
                 {
                     result.Type = PacketType.Video;
-                    result.Data = new Bitmap((int)_Width, (int)_Height);
-                    BitmapData bitmapData = ((Bitmap)(result.Data)).LockBits(new Rectangle(0, 0, (int)_Width, (int)_Height), ImageLockMode.ReadWrite, PixelFormat.Format32bppArgb);
-                    Marshal.Copy(frame_Data.data, 0, bitmapData.Scan0, frame_Data.data.Length);
-                    ((Bitmap)(result.Data)).UnlockBits(bitmapData);
+                    result.Data = frame_Data.video_data;
                 }
                 else //frame data is audio
                 {
                     result.Type = PacketType.Audio;
-                    int[] tempData = new int[frame_Data.data.Length / 2];
-
-                    Parallel.For(0, frame_Data.data.Length / 2, i =>
-                    {
-                        int b = i * 2;
-                        tempData[i] = BitConverter.ToInt16(new byte[] { frame_Data.data[b], frame_Data.data[b + 1] }, 0);
-                    });
-
-                    result.Data = tempData;
+                    result.Data = frame_Data.audio_data;
                 }
             }
             else
@@ -114,9 +97,6 @@ namespace HumbleFrameServer.Base
             }
 
             return result;
-
-
-            
         }
 
 

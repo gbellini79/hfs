@@ -99,11 +99,11 @@ static int decode_packet(int *got_frame, int cached)
 			//printf("video_frame%s n:%d coded_n:%d\n", cached ? "(cached)" : "", video_frame_count++, frame->coded_picture_number);
 			/* copy decoded frame to destination buffer:
 			* this is required since rawvideo expects non aligned data */
-			av_image_copy(video_dst_data, video_dst_linesize,
+			/*av_image_copy(video_dst_data, video_dst_linesize,
 				(const uint8_t **)(frame->data), frame->linesize,
-				video_dec_ctx->pix_fmt, width, height);
-			/* write to rawvideo file */
-			//fwrite(video_dst_data[0], 1, video_dst_bufsize, video_dst_file);
+				video_dec_ctx->pix_fmt, width, height);*/
+				/* write to rawvideo file */
+				//fwrite(video_dst_data[0], 1, video_dst_bufsize, video_dst_file);
 		}
 	}
 	else if (pkt.stream_index == audio_stream_idx) {
@@ -240,23 +240,28 @@ FFMPEG_Cli::frame_data^ FFMPEG_Cli::FFMPEGWrapper::GetNextFrame()
 					uint8_t *dst_data[4];
 					int dst_linesize[4];
 
-					int ret;
-					if ((ret = av_image_alloc(dst_data, dst_linesize,
-						frame->width, frame->height, AV_PIX_FMT_BGRA, 1)) < 0) {
+					if (av_image_alloc(dst_data, dst_linesize, frame->width, frame->height, AV_PIX_FMT_BGRA, 1) < 0) {
 						fprintf(stderr, "Could not allocate destination image\n");
 					}
 
-					sws_scale(videoConverterCtx, frame->data,
-						frame->linesize, 0, frame->height, dst_data, dst_linesize);
+					sws_scale(videoConverterCtx, frame->data, frame->linesize, 0, frame->height, dst_data, dst_linesize);
 
-					result->data = gcnew array<byte>(dst_linesize[0] * video_dec_ctx->height);
-					System::Runtime::InteropServices::Marshal::Copy((IntPtr)dst_data[0], result->data, 0, result->data->Length);
+					result->video_data = gcnew Bitmap(video_dec_ctx->width, video_dec_ctx->height);
+					System::Drawing::Imaging::BitmapData ^bitmapData = result->video_data->LockBits(System::Drawing::Rectangle(0, 0, video_dec_ctx->width, video_dec_ctx->height), System::Drawing::Imaging::ImageLockMode::ReadWrite, System::Drawing::Imaging::PixelFormat::Format32bppArgb);
+					memcpy(bitmapData->Scan0.ToPointer(), &(*dst_data[0]), frame->width *  frame->height * 4);
+					result->video_data->UnlockBits(bitmapData);
+
 
 					av_freep(&dst_data);
 				}
 			}
 			else if (frame->nb_samples > 0)
 			{
+				uint8_t * outAudio[1];
+
+				result->is_audio = true;
+				result->formatName = ctx.marshal_as<String^>(av_get_sample_fmt_name((AVSampleFormat)frame->format));
+
 				if (audio_dec_ctx->sample_fmt != AV_SAMPLE_FMT_S16)
 				{
 					if (!audioConvertCtx)
@@ -278,32 +283,31 @@ FFMPEG_Cli::frame_data^ FFMPEG_Cli::FFMPEGWrapper::GetNextFrame()
 					{
 
 						int outSamples = swr_get_out_samples(audioConvertCtx, frame->nb_samples);
-						uint8_t * outAudio[1];
+
 						outAudio[0] = (uint8_t *)malloc(outSamples * 4);
 						swr_convert(audioConvertCtx, outAudio, outSamples, (const uint8_t**)frame->data, frame->nb_samples);
 
-						result->is_audio = true;
-						result->audio_size = outSamples * 8;// frame->linesize[0];
-						result->data = gcnew array<byte>(outSamples * 4);
-						System::Runtime::InteropServices::Marshal::Copy((IntPtr)outAudio[0], result->data, 0, result->data->Length);
 
-						result->formatName = ctx.marshal_as<String^>(av_get_sample_fmt_name((AVSampleFormat)frame->format));
-
-						free(outAudio[0]);
+						result->audio_size = outSamples * 2;// frame->linesize[0];
+						result->audio_data = gcnew array<int>(outSamples * 2);
 
 						swr_free(&audioConvertCtx);
 					}
 				}
 				else
 				{
-					result->is_audio = true;
-					result->audio_size = frame->linesize[0];
-					result->data = gcnew array<byte>(frame->linesize[0]);
-					System::Runtime::InteropServices::Marshal::Copy((IntPtr)frame->data[0], result->data, 0, result->data->Length);
-
-					result->formatName = ctx.marshal_as<String^>(av_get_sample_fmt_name((AVSampleFormat)frame->format));
-
+					result->audio_size = frame->linesize[0] / 2;
+					result->audio_data = gcnew array<int>(frame->linesize[0] / 2);
+					*outAudio = frame->data[0];
 				}
+
+				for (int i = 0; i < result->audio_data->Length; i++)
+				{
+					int b = i * 2;
+					result->audio_data[i] = outAudio[0][b + 1] * 256 + outAudio[0][b];
+				}
+
+				free(outAudio[0]);
 			}
 		}
 
