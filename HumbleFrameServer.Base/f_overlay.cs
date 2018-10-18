@@ -20,6 +20,7 @@ namespace HumbleFrameServer.Base
         private int _start = 0;
         private int _posx = 0;
         private int _posy = 0;
+        private int _mixaudio = 0;
 
         public string NodeName { get { return "Overlay"; } }
         public string NodeDescription { get { return "Overlays two videos"; } }
@@ -55,6 +56,12 @@ namespace HumbleFrameServer.Base
                 IsRequired = false,
                 Value = 0,
                 Description="Foreground image vertical position"
+            }},
+            {"mixaudio", new NodeParameter(){
+                Type = NodeParameterType.Int,
+                IsRequired = false,
+                Value = 0,
+                Description="Mix audio from -100 (full background) to 100 (full foreground)"
             }}
         };
 
@@ -91,6 +98,10 @@ namespace HumbleFrameServer.Base
 
                         return new DataPacket(PacketType.Video, resultBitmap);
                     }
+                    if (fgData.Data != null && fgData.Type == PacketType.Audio)
+                    {
+                        return result;
+                    }
                     else
                     {
                         return result;
@@ -117,17 +128,22 @@ namespace HumbleFrameServer.Base
 
             if (!_bgvideo.hasVideo || !_fgvideo.hasVideo)
             {
-                throw new Exception("Overlay: Both input must have video");
+                throw new Exception("Overlay: Both inputs must have video");
             }
             else if (_bgvideo.FPS != _fgvideo.FPS)
             {
-                throw new Exception("Overlay: Both input must have same FPS");
+                throw new Exception("Overlay: Inputs must have same FPS");
+            }
+            else if (_bgvideo.hasAudio && _fgvideo.hasAudio && !_bgvideo.IsSameAudio(_fgvideo))
+            {
+                throw new Exception("Overlay: Inputs must have same audio properties");
             }
             else
             {
                 _posx = (int)_Parameters["posx"].Value;
                 _posy = (int)_Parameters["posy"].Value;
                 _start = (int)_Parameters["start"].Value;
+                _mixaudio = (int)_Parameters["mixaudio"].Value;
             }
         }
 
