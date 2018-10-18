@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HumbleFrameServer.Lib;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -24,6 +25,22 @@ namespace HumbleFrameServer.Base
             {
                 throw new Exception(string.Format("Invalid color \"{0}\"", colorString));
             }
+        }
+
+        public static bool IsSameAudio(this iAudioVideoStream av1, iAudioVideoStream audioVideoStream)
+        {
+            return
+                (
+                    !av1.hasAudio && !audioVideoStream.hasAudio
+                )
+                ||
+                (
+                    av1.hasAudio && audioVideoStream.hasAudio
+                    && av1.ChannelsCount == audioVideoStream.ChannelsCount
+                    && av1.BitsPerSample == audioVideoStream.BitsPerSample
+                    && av1.SamplesPerSecond == audioVideoStream.SamplesPerSecond
+                );
+
         }
     }
 }
