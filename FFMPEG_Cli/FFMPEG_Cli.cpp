@@ -149,7 +149,9 @@ FFMPEG_Cli::video_info^ FFMPEG_Cli::FFMPEGWrapper::OpenVideo(String^ FilePath)
 	msclr::interop::marshal_context ctx;
 	src_filename = ctx.marshal_as<const char*>(FilePath);
 
-	//av_register_all();
+	av_register_all();
+
+	fmt_ctx = avformat_alloc_context();
 
 	result->errorcode = avformat_open_input(&fmt_ctx, src_filename, NULL, NULL);
 	if (result->errorcode == 0)
