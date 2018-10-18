@@ -1,0 +1,25 @@
+﻿@q1 = blank(width=400,height=400,color="#0000ffff",frames=1000,fps=60);
+@q2 = blank(width=400,height=400,color="#ffff00ff",frames=1000,fps=60);
+
+@q3 = blank(width=400,height=400,color="#0000ffff",frames=1000,fps=60);
+@q4 = blank(width=400,height=400,color="#ffff00ff",frames=1000,fps=60);
+
+@q12 = dissolve(from=@q1,to=@q2,frames=1000,squared=false);
+@q34 = dissolve(from=@q3,to=@q4,frames=1000,squared=true);
+
+blank(width=440,height=440, color="#0000ffff",fps=60,frames=1200);
+overlay(fgvideo=@q12,posx=20,posy=20,start=200);
+fadein(frames=150, squared=false, color="#00ff00ff");
+@bgr = fadeout(frames=150, squared=false, color="#ff0000ff");
+
+blank(width=440,height=440, color="#0000ffff",fps=60,frames=1200);
+overlay(fgvideo=@q34,posx=20,posy=20,start=200);
+fadein(frames=150, squared=true, color="#00ff00ff");
+@bgl = fadeout(frames=150, squared=true, color="#ff0000ff");
+
+
+blank(width=880, height=440, frames=1200, fps=60,color="#ffffffff");
+overlay(fgvideo=@bgr,posx=0,   posy=0);
+overlay(fgvideo=@bgl,posx=440, posy=0);
+ 
+

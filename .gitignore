@@ -1,0 +1,16 @@
+
+*.user
+*.suo
+.vs/
+x64/
+FFMPEG_Cli/x64/
+HumbleFrameServer\.Base/obj/
+HumbleFrameServer\.Base/bin/
+HumbleFrameServer/bin/
+HumbleFrameServer/obj/
+HumbleFrameServer\.Lib/obj/
+HumbleFrameServer\.Lib/bin/
+MNGj/obj/
+MNGj/bin/
+WAVELib/obj/
+WAVELib/bin/

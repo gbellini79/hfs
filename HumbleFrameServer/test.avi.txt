@@ -1,0 +1,88 @@
+avih
+00 00 00 38 --> 56		size
+00 00 9c 40 --> 40000	dwMicroSecPerFrame
+00 00 bb 80 --> 48000	dwMaxBytesPerSec
+00 00 00 00 --> 0		dwPaddingGranularity
+00 00 09 00 --> 2304	dwFlags
+00 00 00 00 --> 0 		dwTotalFrames
+00 00 00 00 --> 0		dwInitialFrames
+00 00 00 02 --> 2		dwStreams
+00 10 00 00 --> 1048576	dwSuggestedBufferSize
+00 00 00 0a --> 10		dwWidth
+00 00 00 0a --> 10		dwHeight
+
+strl (audio)
+			--> LIST
+00 00 00 74 --> 116		dwSize
+			--> strl
+
+strh (video)
+00 00 00 38 --> 56		size
+76 69 64 71 --> vids	fccType
+00 00 00 00 --> 0		fccHandler (rawvideo)
+00 00 00 00 --> 0		dwFlags
+00 00 		--> 0		wPriority
+00 00 		--> 0		wLanguage
+00 00 00 00 --> 0		dwInitialFrames
+00 00 00 01 --> 1		dwScale
+00 00 00 19 --> 25		dwRate (fps)
+00 00 00 00 --> 0		dwStart
+40 00 00 00 --> 1G		dwLength
+00 10 00 00 --> 1048576 dwSuggestedBufferSize
+ff ff ff ff --> 		dwQuality
+00 00 00 00 --> 0		dwSampleSize
+00 00		--> 0		rcFrame left
+00 00		--> 0		rcFrame top
+00 0a		--> 10		rcFrame width
+00 0a		--> 10		rcFrame height
+
+strf + BITMAPINFOHEADER (video)
+			--> strf
+00 00 00 28 --> 40		dwsize
+00 00 00 28 --> 40		dwsize
+00 00 00 0a --> 10		longWidth (signed int32)
+ff ff ff f6 --> -10		longHeight (negative) (signed int32)
+00 01		--> 1		wPlanes (always 1)
+00 18		--> 24		wBitCount
+00 00 00 00 --> 0		dwCompression (0 = BI_RGB = uncompressed)
+00 00 01 2c --> 300		dwSizeImage (w*h*3byte) (can be zero for BI_RGB)
+00 00 00 00 --> 0		long XPelsPerMeter
+00 00 00 00 --> 0		long YPelsPerMeter
+00 00 00 00 --> 0		dwClrUsed
+00 00 00 00 --> 0		dwClrImportant
+
+strl (audio)
+			--> LIST
+00 00 00 5c --> 92		dwSize
+			--> strl
+
+strh (audio)
+			--> strh
+00 00 00 38 --> 56		dwSize
+61 75 64 73 --> auds	fccType
+00 00 00 01 --> 1		fccHandler (uncompressed?)
+00 00 00 00 --> 0		dwFlags
+00 00 		--> 0		wPriority
+00 00 		--> 0		wLanguage
+00 00 00 00 --> 0		dwInitialFrames
+00 00 00 01 --> 1		dwScale
+00 00 bb 80 --> 48000	dwRate (Hz)
+00 00 00 00 --> 0		dwStart
+40 00 00 00 --> 1G		dwLength
+00 00 30 00	--> 12288	dwSuggestedBufferSize
+ff ff ff ff --> 		dwQuality
+00 00 00 01 --> 1		dwSampleSize (byte= channels * byte per sample?)
+00 00		--> 0		rcFrame left
+00 00		--> 0		rcFrame top
+00 00		--> 0		rcFrame width
+00 00		--> 0		rcFrame height
+
+strf + WAVEFORMATEX (audio)
+			--> strf
+00 00 00 10 --> 16		dwsize
+00 01		--> 1		wFormatTag (1 = uncompressed?)
+00 01		--> 1		wChannels
+00 00 bb 80 --> 48000	dwSamplePerSec
+00 00 bb 80 --> 48000	dwAvgBytesPerSec (dwSamplePerSec * dwSampleSize)
+00 01		--> 1		wBlockAlign = dwSampleSize?
+00 00		--> 0		wcbSize (Extra info size)

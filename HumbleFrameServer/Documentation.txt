@@ -1,0 +1,45 @@
+﻿###### Scripts
+
+#comment begin with #
+
+Every row must contain a complete instruction: variable assign or audiovideo stream
+Every row must end with ;
+Scalar functions return a scalar value
+	getwidth(video = version()); #returns 320
+
+Audiovideo functions return an audiovideo stream
+	version() #return a mute video showing the current version
+
+Parameters names must always be specified (named parameters)
+Optional parameters can be omitted
+If function needs an audiovideo params, it's automatically taken from the output of the previous row
+
+	fadein(to = version(), color = "#000000");
+	
+	#it's the same as
+	version();
+	fadein();
+	
+Values can be stored in variables
+Variables must be preceded by @ character
+Variable assignment must be the first instruction of the row
+Variables can then be used as parameters in functions
+audiovideo variables can be used more than once, but this will produce strange results and it's not currently supported
+
+	@foo = "#00ff00";
+	@bar = version();
+	@foobar = fadein(color = @foo, to = @bar);
+	@newsize = getwidth(input = @bar);
+	resize(input = @foobar, width = @newwidth, height = @newsize);
+
+last row must always return a valid audiovideostream, i.e. must be a function
+
+###### Functions
+Input:
+	Version()
+
+Filters:
+	FadeIn()
+
+Scalar:
+	getWidth

@@ -1,0 +1,36 @@
+﻿openffmpeg(path="C:\download\a\aex\test_stereo_right.mp4",fps=60);
+#@introvideo = resize(width=960,height=720);
+
+
+#@introvideo=openimage(path="C:\download\BudPelota.png",fps=60,frames=240);
+#openwave(path="C:\download\a\aex\left.wav");
+#silence(samplepersecond=48000,channels=2,bitpersample=16);
+#audiodub(video=@introvideo);
+
+
+
+#@introvideo = resize(width=960,height=720);
+
+
+#silence(samplepersecond=48000,channels=2,bitpersample=16);
+#@intro=audiodub(video=@introvideo);
+#
+#
+#openmng(path="E:\Video\diehard.mng");
+#@video=resize(width=960,height=720);
+#@audio = openwave(path="E:\Video\diehard.wav");
+#@audiovideo = audiodub(video=@video, audio=@audio);
+##@video = trim(firstframe=2500,length=1500);
+#
+#
+#dissolve(from=@intro, to=@audiovideo,frames=60);
+##
+##
+#fadein(frames=60);
+#fadeout(frames=60);
+##
+###
+#
+##trim(firstframe=30000);
+
+#Counter();
