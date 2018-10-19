@@ -142,12 +142,16 @@ namespace HumbleFrameServer.Base
                     Graphics texter = Graphics.FromImage(resultBitmap);
                     texter.DrawImage(bgFrame, 0, 0);
 
-                    if (_istimer && _frameCount >= _timerstartframe && _frameCount <= _timerstopframe)
+                    if (_istimer)
                     {
-                        int currentSeconds = Math.Max(0, Convert.ToInt32(Math.Floor(((_frameCount - this._timerstartframe)) / _bgvideo.FPS * 1.0m)));
-                        TimeSpan timeSpan = new TimeSpan(0, 0, currentSeconds);
-                        _text = $"{timeSpan:hh\\:mm\\:ss}";
+                        if (_frameCount >= _timerstartframe && _frameCount <= _timerstopframe)
+                        {
+                            int currentMilli = Math.Max(0, Convert.ToInt32(Math.Floor(((_frameCount - this._timerstartframe) * 1000) / _bgvideo.FPS * 1.0m)));
+                            TimeSpan timeSpan = new TimeSpan(0, 0, 0, 0, currentMilli);
+                            _text = $"{timeSpan:hh\\:mm\\:ss\\.fff}";
+                        }
                     }
+
 
                     texter.DrawString(_text, _font, new SolidBrush(_color), _posx, _posy);
 
@@ -208,7 +212,7 @@ namespace HumbleFrameServer.Base
 
                 if (_istimer)
                 {
-                    _text = "00:00:00";
+                    _text = "--:--:--.---";
                 }
             }
         }

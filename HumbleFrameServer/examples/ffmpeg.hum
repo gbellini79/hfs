@@ -1,16 +1,6 @@
-﻿#openffmpeg(path="C:\download\a\aex\test_stereo_right.mp4");
-#@introvideo = resize(width=960,height=720);
+﻿openffmpeg(path="C:\download\a\aex\heat.mp4");
 
-openffmpeg(path="C:\download\a\aex\heatbrl_999999_krj_[mra].mp4");
-trim(length=300);
-#trim(firstframe=1500);
-#resize(width=320,height=240,mode=lanczos);
-#fadein(frames=60);
-#@first = fadeout(frames=60);
+#Counter();
 
-#openffmpeg(path="C:\download\a\aex\rygarj_7038470_leo_[mra].mp4",fps=60);
-#trim(length=300);
-#trim(firstframe=1500);
-#dissolve(to=@first, frames=60)
+text(firstframe=0, istimer=true, timerstartframe=120, timerstopframe=480, posx=100, posy=100, color="#ffffffff");
 
-Counter();
