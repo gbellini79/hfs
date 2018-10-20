@@ -237,9 +237,8 @@ namespace HumbleFrameServer
                             }
                         }
                         break;
+
                     case 24:
-                        throw new NotImplementedException(string.Format("{0}bit audio is unsupported", _bitpersample));
-                    //break;
                     default:
                         throw new NotImplementedException(string.Format("{0}bit audio is unsupported", _bitpersample));
                         //break;
