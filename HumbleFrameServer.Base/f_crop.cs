@@ -16,7 +16,8 @@ namespace HumbleFrameServer.Base
         private iAudioVideoStream _input = null;
         private int _newWidth = -1;
         private int _newHeight = -1;
-        private string _resizeMode = "resize";
+        private int _left = -1;
+        private int _top = -1;
 
         public string NodeName { get { return "Crop"; } }
         public string NodeDescription { get { return "Crop video"; } }
@@ -28,11 +29,17 @@ namespace HumbleFrameServer.Base
                 IsRequired = true,
                 Value = null
             }},
-            {"mode", new NodeParameter(){
-                Type = NodeParameterType.String,
-                IsRequired = false,
-                Value = "resize",
-                Description="resize|lanczos"
+            {"left", new NodeParameter(){
+                Type = NodeParameterType.Int,
+                IsRequired = true,
+                Value = -1,
+                Description="Left margin"
+            }},
+            {"top", new NodeParameter(){
+                Type = NodeParameterType.Int,
+                IsRequired = true,
+                Value = -1,
+                Description="Top margin"
             }},
             {"width", new NodeParameter(){
                 Type = NodeParameterType.Int,
@@ -57,35 +64,14 @@ namespace HumbleFrameServer.Base
             if (result.Data != null && result.Type == PacketType.Video)
             {
                 Bitmap originalFrame = result.Data as Bitmap;
-                if (originalFrame.Height != _newHeight || originalFrame.Width != _newWidth)
-                {
+                Bitmap croppedFrame = new Bitmap(_newWidth, _newHeight, originalFrame.PixelFormat);
 
-                    Bitmap scaledFrame = new Bitmap(_newWidth, _newHeight, originalFrame.PixelFormat);
+                //Crop
+                Graphics cropper = Graphics.FromImage(croppedFrame);
+                cropper.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
+                cropper.DrawImage(originalFrame, 0, 0, new Rectangle(_left, _top, _newWidth, _newHeight), GraphicsUnit.Pixel);
 
-                    //Resize
-                    Graphics rescaler = Graphics.FromImage(scaledFrame);
-                    rescaler.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
-                    switch (_resizeMode)
-                    {
-                        case "resize":
-                            rescaler.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
-                            break;
-                        case "lanczos":
-                            rescaler.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
-                            break;
-                        default:
-                            throw new Exception("Resize: unknown resize mode \"" + _resizeMode + "\"");
-                            break;
-                    }
-
-                    rescaler.DrawImage(originalFrame, 0, 0, _newWidth, _newHeight);
-
-                    return new DataPacket(PacketType.Video, scaledFrame);
-                }
-                else
-                {
-                    return result;
-                }
+                return new DataPacket(PacketType.Video, croppedFrame);
             }
             else
             {
@@ -99,13 +85,14 @@ namespace HumbleFrameServer.Base
             _input.openStream();
             if (!_input.hasVideo)
             {
-                throw new Exception("Cannot resize audio...");
+                throw new Exception("Cannot crop audio...");
             }
             else
             {
                 _newWidth = (int)_Parameters["width"].Value;
                 _newHeight = (int)_Parameters["height"].Value;
-                _resizeMode = _Parameters["mode"].Value as string;
+                _left = (int)_Parameters["left"].Value;
+                _top = (int)_Parameters["top"].Value;
             }
         }
 
@@ -115,13 +102,7 @@ namespace HumbleFrameServer.Base
         public ushort BitsPerSample { get { return _input.BitsPerSample; } }
         public uint SamplesPerSecond { get { return _input.SamplesPerSecond; } }
         public ushort ChannelsCount { get { return _input.ChannelsCount; } }
-        public decimal FPS
-        {
-            get
-            {
-                return _input.FPS;
-            }
-        }
+        public decimal FPS { get { return _input.FPS; } }
         public uint Width { get { return Convert.ToUInt32(_newWidth); } }
         public uint Height { get { return Convert.ToUInt32(_newHeight); } }
     }
