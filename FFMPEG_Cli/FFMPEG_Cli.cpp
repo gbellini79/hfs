@@ -258,12 +258,14 @@ FFMPEG_Cli::frame_data^ FFMPEG_Cli::FFMPEGWrapper::GetNextFrame()
 			else if (frame->nb_samples > 0)
 			{
 				uint8_t * outAudio[1];
+				bool audioConverted = false;
 
 				result->is_audio = true;
 				result->formatName = ctx.marshal_as<String^>(av_get_sample_fmt_name((AVSampleFormat)frame->format));
 
 				if (audio_dec_ctx->sample_fmt != AV_SAMPLE_FMT_S16)
 				{
+					audioConverted = true;
 					if (!audioConvertCtx)
 					{
 						audioConvertCtx = swr_alloc_set_opts(NULL,  // we're allocating a new context
@@ -281,7 +283,6 @@ FFMPEG_Cli::frame_data^ FFMPEG_Cli::FFMPEGWrapper::GetNextFrame()
 
 					if (audioConvertCtx)
 					{
-
 						int outSamples = swr_get_out_samples(audioConvertCtx, frame->nb_samples);
 
 						outAudio[0] = (uint8_t *)malloc(outSamples * 4);
@@ -307,7 +308,9 @@ FFMPEG_Cli::frame_data^ FFMPEG_Cli::FFMPEGWrapper::GetNextFrame()
 					result->audio_data[i] = outAudio[0][b + 1] * 256 + outAudio[0][b];
 				}
 
-				free(outAudio[0]);
+				if (audioConverted) {
+					free(outAudio);
+				}
 			}
 		}
 
