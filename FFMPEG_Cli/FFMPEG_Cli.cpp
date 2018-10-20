@@ -305,7 +305,7 @@ FFMPEG_Cli::frame_data^ FFMPEG_Cli::FFMPEGWrapper::GetNextFrame()
 				for (int i = 0; i < result->audio_data->Length; i++)
 				{
 					int b = i * 2;
-					result->audio_data[i] = outAudio[0][b + 1] * 256 + outAudio[0][b];
+					result->audio_data[i] = (short)(outAudio[0][b + 1] * 256 + outAudio[0][b]);
 				}
 
 				if (audioConverted) {
