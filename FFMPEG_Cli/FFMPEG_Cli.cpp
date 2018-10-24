@@ -309,7 +309,7 @@ FFMPEG_Cli::frame_data^ FFMPEG_Cli::FFMPEGWrapper::GetNextFrame()
 				}
 
 				if (audioConverted) {
-					free(outAudio);
+					free(*outAudio);
 				}
 			}
 		}
