@@ -24,6 +24,7 @@ namespace HumbleFrameServer.Base
         private bool _istimer = false;
         private int _timerstartframe = 0;
         private int _timerstopframe = -1;
+        private bool _showHH = true;
 
         public string NodeName { get { return "Text"; } }
         public string NodeDescription { get { return "Write text"; } }
@@ -119,6 +120,12 @@ namespace HumbleFrameServer.Base
                 IsRequired = false,
                 Value = -1,
                 Description="Time stop at frame (-1)"
+            }},
+            {"showHH", new NodeParameter(){
+                Type = NodeParameterType.Bool,
+                IsRequired = false,
+                Value = true,
+                Description="Shows hours"
             }}
         };
 
@@ -148,7 +155,7 @@ namespace HumbleFrameServer.Base
                         {
                             int currentMilli = Math.Max(0, Convert.ToInt32(Math.Floor(((_frameCount - this._timerstartframe) * 1000) / _bgvideo.FPS * 1.0m)));
                             TimeSpan timeSpan = new TimeSpan(0, 0, 0, 0, currentMilli);
-                            _text = $"{timeSpan:hh\\:mm\\:ss\\.fff}";
+                            _text = _showHH ? $"{timeSpan:hh\\:mm\\:ss\\.fff}" : $"{timeSpan:mm\\:ss\\.fff}";
                         }
                     }
 
@@ -187,6 +194,7 @@ namespace HumbleFrameServer.Base
                 _istimer = (bool)_Parameters["istimer"].Value;
                 _timerstartframe = (int)_Parameters["timerstartframe"].Value;
                 _timerstopframe = (int)_Parameters["timerstopframe"].Value;
+                _showHH = (bool)_Parameters["showHH"].Value;
 
                 string fontFamily = (string)_Parameters["font"].Value;
                 float fontSize = Convert.ToSingle(_Parameters["size"].Value);
@@ -212,7 +220,7 @@ namespace HumbleFrameServer.Base
 
                 if (_istimer)
                 {
-                    _text = "--:--:--.---";
+                    _text = _showHH ? "00:00:00.000" : "00:00.000";
                 }
             }
         }
