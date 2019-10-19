@@ -159,7 +159,6 @@ namespace HumbleFrameServer.Base
                         }
                     }
 
-
                     texter.DrawString(_text, _font, new SolidBrush(_color), _posx, _posy);
 
                     return new DataPacket(PacketType.Video, resultBitmap);
