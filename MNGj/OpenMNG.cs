@@ -109,18 +109,18 @@ namespace HumbleFrameServer
             _height = Convert.ToUInt32(_firstFrame.Height);
 
             //Indexing
-            if (File.Exists(path + ".index"))
-            {
-                _mngIndex = File.OpenRead(path + ".index");
-            }
-            else
-            {
-                if (DialogResult.Yes == MessageBox.Show(string.Format("\"{0}\" should be indexed. Do you want to do it now?", path), "OpenMNG - Indexing", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
-                {
-                    IndexMNG(path);
-                    _mngIndex = File.OpenRead(path + ".index");
-                }
-            }
+            //if (File.Exists(path + ".index"))
+            //{
+            //    _mngIndex = File.OpenRead(path + ".index");
+            //}
+            //else
+            //{
+            //    if (DialogResult.Yes == MessageBox.Show(string.Format("\"{0}\" should be indexed. Do you want to do it now?", path), "OpenMNG - Indexing", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
+            //    {
+            //        IndexMNG(path);
+            //        _mngIndex = File.OpenRead(path + ".index");
+            //    }
+            //}
         }
 
         public void closeStream()
