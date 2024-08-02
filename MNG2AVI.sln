@@ -1,17 +1,17 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MAMEMNGlib", "MNGj\MAMEMNGlib.csproj", "{DB5E84E1-B6DE-4158-BA5A-B48598F4AD06}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MAMEMNGlib", "MNGj\MAMEMNGlib.csproj", "{DB5E84E1-B6DE-4158-BA5A-B48598F4AD06}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WAVELib", "WAVELib\WAVELib.csproj", "{E56944EE-762C-4249-9942-0561B5889A88}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WAVELib", "WAVELib\WAVELib.csproj", "{E56944EE-762C-4249-9942-0561B5889A88}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HumbleFrameServer", "HumbleFrameServer\HumbleFrameServer.csproj", "{EB4AF0E0-572A-4F1B-8007-68324387E8AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HumbleFrameServer", "HumbleFrameServer\HumbleFrameServer.csproj", "{EB4AF0E0-572A-4F1B-8007-68324387E8AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HumbleFrameServer.Lib", "HumbleFrameServer.Lib\HumbleFrameServer.Lib.csproj", "{9BC49FD2-7B4A-4DEC-9806-3255A86365FA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HumbleFrameServer.Lib", "HumbleFrameServer.Lib\HumbleFrameServer.Lib.csproj", "{9BC49FD2-7B4A-4DEC-9806-3255A86365FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HumbleFrameServer.Base", "HumbleFrameServer.Base\HumbleFrameServer.Base.csproj", "{FD9DD052-BABF-4264-A197-21FBE192B64C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HumbleFrameServer.Base", "HumbleFrameServer.Base\HumbleFrameServer.Base.csproj", "{FD9DD052-BABF-4264-A197-21FBE192B64C}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FFMPEG_Cli", "FFMPEG_Cli\FFMPEG_Cli.vcxproj", "{1518399F-E158-4E4D-9FF0-0EFAD02C59E0}"
 EndProject
