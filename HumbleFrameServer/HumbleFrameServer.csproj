@@ -2,22 +2,6 @@
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <OutputType>Exe</OutputType>
-    <PublishUrl>publish\</PublishUrl>
-    <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <UseApplicationTrust>false</UseApplicationTrust>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DefineConstants>TRACE;BUBBLE</DefineConstants>
@@ -58,29 +42,14 @@
   <ItemGroup>
     <ProjectReference Include="..\HumbleFrameServer.Base\HumbleFrameServer.Base.csproj" />
     <ProjectReference Include="..\HumbleFrameServer.Lib\HumbleFrameServer.Lib.csproj" />
+    <ProjectReference Include="..\MNGj\MAMEMNGlib.csproj" />
+    <ProjectReference Include="..\WAVELib\WAVELib.csproj" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="TextRes.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>TextRes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <BootstrapperPackage Include=".NETFramework,Version=v4.5">
-      <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4.5 %28x86 and x64%29</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
     <Content Include="changelog.md" />
@@ -93,18 +62,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Remove="Properties\AssemblyInfo (1).cs" />
   </ItemGroup>
   <PropertyGroup>
     <AssemblyTitle>HumbleFrameServer</AssemblyTitle>
-    <Product>HumbleFrameServer</Product>
-    <Copyright>Copyright © Giacomo Bellini 2018</Copyright>
-    <AssemblyVersion>0.9.3</AssemblyVersion>
-    <InformationalVersion>WAAAAAV</InformationalVersion>
+    <Version />
   </PropertyGroup>
 </Project>

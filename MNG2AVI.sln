@@ -1,7 +1,6 @@
-
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2010
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35122.118
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MAMEMNGlib", "MNGj\MAMEMNGlib.csproj", "{DB5E84E1-B6DE-4158-BA5A-B48598F4AD06}"
 EndProject
@@ -14,6 +13,11 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HumbleFrameServer.Base", "HumbleFrameServer.Base\HumbleFrameServer.Base.csproj", "{FD9DD052-BABF-4264-A197-21FBE192B64C}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FFMPEG_Cli", "FFMPEG_Cli\FFMPEG_Cli.vcxproj", "{1518399F-E158-4E4D-9FF0-0EFAD02C59E0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A450A693-523D-480D-AA69-5D098DBF5102}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Build.props = Directory.Build.props
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

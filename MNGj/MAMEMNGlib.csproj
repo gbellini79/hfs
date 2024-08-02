@@ -1,12 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net8.0-windows</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <OutputType>Library</OutputType>
     <RootNamespace>MNGj</RootNamespace>
     <AssemblyName>MNGj</AssemblyName>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <UseWindowsForms>true</UseWindowsForms>
-    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>..\HumbleFrameServer\bin\Debug\Plugins\</OutputPath>
@@ -35,6 +32,9 @@
   <ItemGroup>
     <Content Include="MNG 1.0.htm" />
     <Content Include="Portable Network Graphics %28PNG%29 Specification %28Second Edition%29.htm" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="System.Drawing.Common" Version="8.0.7" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HumbleFrameServer.Lib\HumbleFrameServer.Lib.csproj" />

@@ -1,0 +1,15 @@
+<Project>
+  <PropertyGroup>
+    <Version>0.9.3</Version>
+    <InformationalVersion>WAAAAAV</InformationalVersion>
+
+    <Copyright>Giacomo Bellini © 2024</Copyright>
+    <ProductName>HFS</ProductName>
+    <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
+    <LangVersion>latest</LangVersion>
+
+    <FileVersion>$(Version)</FileVersion>
+    <AssemblyVersion>$(Version)</AssemblyVersion>
+    
+  </PropertyGroup>
+</Project>
