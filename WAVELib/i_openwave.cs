@@ -46,6 +46,11 @@ namespace HumbleFrameServer.WAVELib
         /// </summary>
         public ulong dwAvgBytesPerSec { get { return _dwAvgBytesPerSec; } }
 
+        /// <summary>
+        /// If true ingnores lenght of the wav file and keeps reading 'till the end of time
+        /// </summary>
+        private bool ignoreLenght = false;
+
         #endregion
 
         #region Private Methods
@@ -140,6 +145,8 @@ namespace HumbleFrameServer.WAVELib
 
         public void openStream()
         {
+            this.ignoreLenght = (bool)this._Parameters["ignore_length"].Value;
+
             _waveStreamReader = new BinaryReader(new FileStream((string)this._Parameters["path"].Value, FileMode.Open, FileAccess.Read, FileShare.Read));
             bool result = this.readHeader() && this.readFMT() && this.goToWAVEChunk();
             if (!result)
@@ -201,9 +208,10 @@ namespace HumbleFrameServer.WAVELib
         {
             Type = PacketType.Audio
         };
+
         public DataPacket getNextPacket()
         {
-            if (_waveChunkSize > 0)
+            if (ignoreLenght || _waveChunkSize > 0)
             {
                 _waveChunkSize -= _wBlockAlign;
                 _nextPacket = new DataPacket(PacketType.Audio, parseSample(_waveStreamReader.ReadBytes(_wBlockAlign)));
@@ -223,11 +231,20 @@ namespace HumbleFrameServer.WAVELib
         #endregion
 
 
-        private Dictionary<string, NodeParameter> _Parameters = new Dictionary<string, NodeParameter>() { {"path",
-            new NodeParameter(){
-                Type = NodeParameterType.String,
-                IsRequired = true
-            }}
+        private Dictionary<string, NodeParameter> _Parameters = new Dictionary<string, NodeParameter>() {
+            { "path",
+                new NodeParameter(){
+                    Type = NodeParameterType.String,
+                    IsRequired = true
+                }
+            },
+            { "ignore_length",
+                new NodeParameter(){
+                    Type = NodeParameterType.Bool,
+                    IsRequired = false,
+                    Value = false
+                }
+            }
         };
 
         public Dictionary<string, NodeParameter> Parameters { get { return _Parameters; } }

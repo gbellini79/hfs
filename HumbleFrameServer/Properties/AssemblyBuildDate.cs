@@ -1,2 +1,2 @@
 using HumbleFrameServer.Lib;
-[assembly: AssemblyBuildDate(BuildDate = "15/04/2019 21:49:02,60")]
+[assembly: AssemblyBuildDate(BuildDate = "19/10/2019 17:28:21,73")]

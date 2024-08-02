@@ -1,9 +1,15 @@
-﻿0.9.2 - 2018-10-20
+﻿0.9.3 - 2019-10-19
+	[Update]
+		Support for WAV files longer that 6 hours
+		Disabled annoying MNG indexing request
+		Better timer controls
+
+0.9.2 - 2018-10-20
 	[New]
 		Crop
 
 	[Fix]
-		16bit audio form FFMPEG
+		16bit audio from FFMPEG
 
 0.9.1 - 2018-10-19
 	[Update]
