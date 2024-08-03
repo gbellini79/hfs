@@ -18,11 +18,6 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\HumbleFrameServer\Properties\AssemblyInfo.cs">
-      <Link>Properties\AssemblyInfo.cs</Link>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\FFMPEG_Cli\FFMPEG_Cli.vcxproj" />
     <ProjectReference Include="..\HumbleFrameServer.Lib\HumbleFrameServer.Lib.csproj" />
   </ItemGroup>

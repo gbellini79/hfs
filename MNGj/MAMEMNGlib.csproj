@@ -25,11 +25,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\HumbleFrameServer\Properties\AssemblyInfo.cs">
-      <Link>Properties\AssemblyInfo.cs</Link>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="MNG 1.0.htm" />
     <Content Include="Portable Network Graphics %28PNG%29 Specification %28Second Edition%29.htm" />
   </ItemGroup>
