@@ -1,10 +1,7 @@
-﻿using System;
+﻿using HumbleFrameServer.Lib;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Drawing;
-using HumbleFrameServer.Lib;
 using System.Reflection;
 
 namespace HumbleFrameServer.Base
@@ -16,7 +13,7 @@ namespace HumbleFrameServer.Base
 
         private int _framesLeft = -1;
 
-        private Dictionary<string, NodeParameter> _Parameters = new Dictionary<string, NodeParameter>();
+        private readonly Dictionary<string, NodeParameter> _Parameters = [];
         public Dictionary<string, NodeParameter> Parameters { get { return _Parameters; } }
 
         public decimal FPS
@@ -24,13 +21,13 @@ namespace HumbleFrameServer.Base
             get { return 25M; }
         }
 
-        private int _width = 400;
+        private readonly int _width = 400;
         public uint Width
         {
             get { return Convert.ToUInt32(_width); }
         }
 
-        private int _height = 100;
+        private readonly int _height = 100;
         public uint Height
         {
             get { return Convert.ToUInt32(_height); }
@@ -51,7 +48,7 @@ namespace HumbleFrameServer.Base
                 _framesLeft--;
                 _framesCounter++;
 
-                Bitmap _returnFrame = new Bitmap(_width, _height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+                Bitmap _returnFrame = new(_width, _height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
                 Graphics newGraphics = Graphics.FromImage(_returnFrame);
 
                 newGraphics.DrawString(_versionString + "\r\nFrame number: " + _framesCounter, new Font("Arial", 10), Brushes.White, new PointF(1, 4));

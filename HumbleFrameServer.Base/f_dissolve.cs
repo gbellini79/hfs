@@ -1,13 +1,10 @@
-﻿using System;
+﻿using HumbleFrameServer.Lib;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Drawing;
 using System.Drawing.Imaging;
-using HumbleFrameServer.Lib;
-using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 
 namespace HumbleFrameServer.Base
 {
@@ -21,12 +18,12 @@ namespace HumbleFrameServer.Base
         private int _frames = 0;
         private bool _squared = true;
 
-        private Dictionary<string, NodeParameter> _Parameters = new Dictionary<string, NodeParameter>() { 
+        private readonly Dictionary<string, NodeParameter> _Parameters = new() {
             {"from", new NodeParameter(){
                 Type = NodeParameterType.AudioVideoStream,
                 IsRequired = true,
                 Value = null
-            }},    
+            }},
             {"to", new NodeParameter(){
                 Type = NodeParameterType.AudioVideoStream,
                 IsRequired = true,
@@ -68,7 +65,7 @@ namespace HumbleFrameServer.Base
         {
             double dPercentace = Convert.ToDouble(Percentage);
 
-            Bitmap bmpResult = new Bitmap(bmpFrom.Width, bmpFrom.Height, bmpFrom.PixelFormat);
+            Bitmap bmpResult = new(bmpFrom.Width, bmpFrom.Height, bmpFrom.PixelFormat);
 
             BitmapData lockFrom = bmpFrom.LockBits(new Rectangle(0, 0, bmpFrom.Width, bmpFrom.Height), ImageLockMode.ReadOnly, bmpFrom.PixelFormat);
             byte[] rgbFrom = new byte[bmpFrom.Width * bmpFrom.Height * Image.GetPixelFormatSize(bmpFrom.PixelFormat) / 8];

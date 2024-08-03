@@ -1,11 +1,8 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.IO;
-using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.Runtime.InteropServices;
+using System.IO;
+using System.Text;
 
 namespace MNGj
 {
@@ -84,7 +81,7 @@ namespace MNGj
         /// <summary>
         /// Struct to store MHDR chunk information about the MNG file structure
         /// </summary>
-        internal MHDR_Chunk_Struct MHDR_Chunk = new MHDR_Chunk_Struct();
+        internal MHDR_Chunk_Struct MHDR_Chunk = new();
 
         //// <summary>
         //// Index of the MNGFile - Store position of every frame
@@ -158,8 +155,8 @@ namespace MNGj
         /// <returns></returns>
         public Bitmap GetNextFrame()
         {
-            MemoryStream newImageStream = new MemoryStream();
-            BinaryWriter newImageStreamW = new BinaryWriter(newImageStream);
+            MemoryStream newImageStream = new();
+            BinaryWriter newImageStreamW = new(newImageStream);
 
             newImageStreamW.Write(PNGHeader, 0, PNGHeader.Length);
 
@@ -195,7 +192,7 @@ namespace MNGj
                 newImage32.UnlockBits(dataTarget);
                  */
 
-                Bitmap newImage32 = new Bitmap(newImage.Width, newImage.Height, PixelFormat.Format32bppArgb);
+                Bitmap newImage32 = new(newImage.Width, newImage.Height, PixelFormat.Format32bppArgb);
                 Graphics grp = Graphics.FromImage(newImage32);
                 grp.DrawImage(newImage, 0, 0);
 
@@ -317,7 +314,7 @@ namespace MNGj
 
             string newHex = string.Format("{0,8:x}", intNumber).Replace(' ', '0');
 
-            newArray[0] = byte.Parse(newHex.Substring(0, 2), System.Globalization.NumberStyles.HexNumber);
+            newArray[0] = byte.Parse(newHex[..2], System.Globalization.NumberStyles.HexNumber);
             newArray[1] = byte.Parse(newHex.Substring(2, 2), System.Globalization.NumberStyles.HexNumber);
             newArray[2] = byte.Parse(newHex.Substring(4, 2), System.Globalization.NumberStyles.HexNumber);
             newArray[3] = byte.Parse(newHex.Substring(6, 2), System.Globalization.NumberStyles.HexNumber);

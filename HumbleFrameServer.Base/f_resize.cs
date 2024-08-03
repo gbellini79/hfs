@@ -1,13 +1,7 @@
-﻿using System;
+﻿using HumbleFrameServer.Lib;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Drawing;
-using System.Drawing.Imaging;
-using HumbleFrameServer.Lib;
-using System.Reflection;
-using System.Runtime.InteropServices;
 
 namespace HumbleFrameServer.Base
 {
@@ -22,7 +16,7 @@ namespace HumbleFrameServer.Base
         public string NodeDescription { get { return "Resize video"; } }
         public NodeType Type { get { return NodeType.Filter; } }
 
-        private Dictionary<string, NodeParameter> _Parameters = new Dictionary<string, NodeParameter>() {
+        private readonly Dictionary<string, NodeParameter> _Parameters = new() {
             {"input", new NodeParameter(){
                 Type = NodeParameterType.AudioVideoStream,
                 IsRequired = true,
@@ -60,7 +54,7 @@ namespace HumbleFrameServer.Base
                 if (originalFrame.Height != _newHeight || originalFrame.Width != _newWidth)
                 {
 
-                    Bitmap scaledFrame = new Bitmap(_newWidth, _newHeight, originalFrame.PixelFormat);
+                    Bitmap scaledFrame = new(_newWidth, _newHeight, originalFrame.PixelFormat);
 
                     //Resize
                     Graphics rescaler = Graphics.FromImage(scaledFrame);

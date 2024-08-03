@@ -1,12 +1,8 @@
-﻿using System;
+﻿using HumbleFrameServer.Lib;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Drawing;
 using System.Drawing.Imaging;
-using HumbleFrameServer.Lib;
-using System.Reflection;
 
 namespace HumbleFrameServer.Base
 {
@@ -20,12 +16,12 @@ namespace HumbleFrameServer.Base
         private int _width = 0;
         private int _height = 0;
 
-        private Dictionary<string, NodeParameter> _Parameters = new Dictionary<string, NodeParameter>() { 
+        private readonly Dictionary<string, NodeParameter> _Parameters = new() {
             {"fps", new NodeParameter(){
                 Type = NodeParameterType.Decimal,
                 IsRequired = false,
                 Value = 25.0M
-            }},    
+            }},
             {"width", new NodeParameter(){
                 Type = NodeParameterType.Int,
                 IsRequired = false,
@@ -93,7 +89,7 @@ namespace HumbleFrameServer.Base
 
             Color colorColor = (_Parameters["color"].Value as string).ToRGBAColor();
 
-            Bitmap newFrame = new Bitmap(_width, _height, PixelFormat.Format32bppArgb);
+            Bitmap newFrame = new(_width, _height, PixelFormat.Format32bppArgb);
             Graphics gr = Graphics.FromImage(newFrame);
             gr.FillRectangle(new SolidBrush(colorColor), 0, 0, _width, _height);
 

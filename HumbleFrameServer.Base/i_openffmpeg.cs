@@ -1,16 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Drawing;
+﻿using FFMPEG_Cli;
 using HumbleFrameServer.Lib;
-using System.Reflection;
-using System.Diagnostics;
-using System.IO;
-using System.Drawing.Imaging;
-using FFMPEG_Cli;
-using System.Runtime.InteropServices;
+using System;
+using System.Collections.Generic;
 
 namespace HumbleFrameServer.Base
 {
@@ -25,7 +16,7 @@ namespace HumbleFrameServer.Base
         private int _framesLeft = 0;
         private string _path = "";
 
-        private Dictionary<string, NodeParameter> _Parameters = new Dictionary<string, NodeParameter>() {
+        private readonly Dictionary<string, NodeParameter> _Parameters = new() {
             {"path", new NodeParameter(){
                 Type = NodeParameterType.String,
                 IsRequired = true
@@ -62,11 +53,11 @@ namespace HumbleFrameServer.Base
         private FFMPEGWrapper _ffmpeg = null;
         private video_info _video_Info = null;
 
-        private Queue<byte> _buffer = new Queue<byte>(8);
+        private readonly Queue<byte> _buffer = new(8);
 
         public DataPacket getNextPacket()
         {
-            DataPacket result = new DataPacket() { Data = null };
+            DataPacket result = new() { Data = null };
 
             frame_data frame_Data = _ffmpeg.GetNextFrame();
             while (frame_Data != null && frame_Data.audio_data == null && frame_Data.video_data == null)

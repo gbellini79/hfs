@@ -1,1 +1,0 @@
-%1builddate_get.bat > %2Properties\AssemblyBuildDate.cs

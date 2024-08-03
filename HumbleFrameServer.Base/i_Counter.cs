@@ -1,11 +1,6 @@
-﻿using System;
+﻿using HumbleFrameServer.Lib;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Drawing;
-using HumbleFrameServer.Lib;
-using System.Reflection;
 
 namespace HumbleFrameServer.Base
 {
@@ -16,7 +11,7 @@ namespace HumbleFrameServer.Base
 
         private iAudioVideoStream _input = null;
 
-        private Dictionary<string, NodeParameter> _Parameters = new Dictionary<string, NodeParameter>() { 
+        private readonly Dictionary<string, NodeParameter> _Parameters = new() {
             {"input", new NodeParameter(){
                 Type = NodeParameterType.AudioVideoStream,
                 IsRequired = true,
@@ -52,7 +47,7 @@ namespace HumbleFrameServer.Base
             }
             else
             {
-                Bitmap returnFrame = new Bitmap(newFrame.Data as Bitmap);
+                Bitmap returnFrame = new(newFrame.Data as Bitmap);
                 Graphics newGraphics = Graphics.FromImage(returnFrame);
 
                 newGraphics.DrawString(string.Format("{0:#,#}", _framesCounter), new Font("Arial", 10), Brushes.White, new PointF(1, 4));

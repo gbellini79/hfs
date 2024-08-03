@@ -2,21 +2,18 @@
 #define NOBUBBLE
 #endif
 
+using HumbleFrameServer.Base;
+using HumbleFrameServer.Lib;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using HumbleFrameServer.Lib;
-using HumbleFrameServer.Base;
-using System.IO;
-using System.Reflection;
 using System.Configuration;
-using System.Collections.Specialized;
-using System.Drawing;
 using System.Diagnostics;
-using System.Resources;
+using System.Drawing;
 using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Text;
 using System.Threading;
 
 
@@ -43,7 +40,7 @@ namespace HumbleFrameServer
         public StreamsTree()
         {
             FunctionName = string.Empty;
-            Parameters = new Dictionary<string, object>();
+            Parameters = [];
         }
     }
 
@@ -109,14 +106,14 @@ namespace HumbleFrameServer
              * -debugit: force it-IT culture
              * -fl: functions list
              * */
-            List<string> outputText = new List<string>();
+            List<string> outputText = [];
 
-            if (args.Count(x => x == "-debugit") > 0)
+            if (args.Any(x => x == "-debugit"))
             {
                 Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("it-IT");
             }
 
-            if (args.Count(x => x == "-fl") > 0)
+            if (args.Any(x => x == "-fl"))
             {
                 _showFunctionsList = true;
             }
@@ -157,7 +154,7 @@ namespace HumbleFrameServer
         //TODO: usare un oggetto per tenere traccia dell'utilizzo della variabile e dare messaggi di errore più utili
         private Dictionary<string, object> _Variables;
 
-        private CultureInfo _US_Culture = new CultureInfo("en-US");
+        private readonly CultureInfo _US_Culture = new("en-US");
         private NodeParameter parseRow(string textRow,/* out bool FunctionAsVariable, */iAudioVideoStream Function = null)
         {
             iAudioVideoStream newFunction = Function;
@@ -182,7 +179,7 @@ namespace HumbleFrameServer
                     //Function name
                     if (newFunctionName == string.Empty)
                     {
-                        newFunctionName = textRow.Substring(beginOfElement, c - beginOfElement).ToLower();
+                        newFunctionName = textRow[beginOfElement..c].ToLower();
                         if (!_functionsCatalog.ContainsKey(newFunctionName))
                         {
                             throw new Exception(string.Format(TextRes.unknown_function, newFunctionName));
@@ -222,7 +219,7 @@ namespace HumbleFrameServer
                                 {
                                     if (_Variables.Count(x => x.Key == currentVar) == 0)
                                     {
-                                        _Variables.Add(currentVar, parseRow(textRow.Substring(beginOfElement, c - beginOfElement)));
+                                        _Variables.Add(currentVar, parseRow(textRow[beginOfElement..c]));
                                     }
                                     else
                                     {
@@ -233,7 +230,7 @@ namespace HumbleFrameServer
                                 {
                                     if (newFunction.Parameters.Count(x => x.Key == currentParam) == 1)
                                     {
-                                        newFunction.Parameters[currentParam].Value = parseRow(textRow.Substring(beginOfElement, c - beginOfElement));
+                                        newFunction.Parameters[currentParam].Value = parseRow(textRow[beginOfElement..c]);
                                     }
                                     else
                                     {
@@ -242,7 +239,7 @@ namespace HumbleFrameServer
                                 }
                                 else
                                 {
-                                    newFunction.Parameters.Last().Value.Value = parseRow(textRow.Substring(beginOfElement, c - beginOfElement));
+                                    newFunction.Parameters.Last().Value.Value = parseRow(textRow[beginOfElement..c]);
                                 }
                                 break;
                             }
@@ -414,7 +411,7 @@ namespace HumbleFrameServer
         {
             int rowCount = 0;
 
-            _Variables = new Dictionary<string, object>();
+            _Variables = [];
             TextReader inScript = File.OpenText(_scriptPath);
             _render = new Renderer();
 
@@ -454,7 +451,7 @@ namespace HumbleFrameServer
         /// <returns></returns>
         private void loadPlugIns()
         {
-            StringBuilder outputText = new StringBuilder("\r\nFunctions list:\r\n");
+            StringBuilder outputText = new("\r\nFunctions list:\r\n");
 
             string[] blackList = {
                 "avcodec-58.dll",
@@ -472,7 +469,7 @@ namespace HumbleFrameServer
             {
                 Directory.SetCurrentDirectory(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
 
-                _functionsCatalog = new Dictionary<string, FunctionDefinition>();
+                _functionsCatalog = [];
 
                 string[] pluginPaths = ConfigurationManager.AppSettings["pluginspath"].Split(new string[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
                 foreach (string pluginPath in pluginPaths)
@@ -556,7 +553,7 @@ namespace HumbleFrameServer
 
             DataPacket currentPacket;
 
-            Stopwatch sw = new Stopwatch();
+            Stopwatch sw = new();
             sw.Start();
             while ((currentPacket = _render.getNextPacket()) != null && currentPacket.Data != null)
             {
@@ -585,7 +582,7 @@ namespace HumbleFrameServer
     {
         static void Main(string[] args)
         {
-            Humfs _humfs = new Humfs(args);
+            _ = new Humfs(args);
             if (Debugger.IsAttached)
             {
                 Console.WriteLine("Press any key");

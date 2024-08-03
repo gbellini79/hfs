@@ -1,15 +1,9 @@
-﻿using System;
+﻿using HumbleFrameServer.Lib;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Drawing;
-using System.Drawing.Imaging;
-using HumbleFrameServer;
-using HumbleFrameServer.Lib;
-using System.Reflection;
-using System.Runtime.InteropServices;
 using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 
 namespace HumbleFrameServer.Base
 {
@@ -26,7 +20,7 @@ namespace HumbleFrameServer.Base
         public string NodeDescription { get { return "Overlays two videos"; } }
         public NodeType Type { get { return NodeType.Filter; } }
 
-        private Dictionary<string, NodeParameter> _Parameters = new Dictionary<string, NodeParameter>() {
+        private readonly Dictionary<string, NodeParameter> _Parameters = new() {
             {"bgvideo", new NodeParameter(){
                 Type = NodeParameterType.AudioVideoStream,
                 IsRequired = true,
@@ -87,7 +81,7 @@ namespace HumbleFrameServer.Base
 
                     if (fgData.Data != null && fgData.Type == PacketType.Video)
                     {
-                        Bitmap resultBitmap = new Bitmap(Convert.ToInt32(_bgvideo.Width), Convert.ToInt32(_bgvideo.Height), PixelFormat.Format32bppArgb);
+                        Bitmap resultBitmap = new(Convert.ToInt32(_bgvideo.Width), Convert.ToInt32(_bgvideo.Height), PixelFormat.Format32bppArgb);
                         Bitmap bgFrame = result.Data as Bitmap;
                         Bitmap fgFrame = fgData.Data as Bitmap;
 

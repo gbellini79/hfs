@@ -1,11 +1,7 @@
-﻿using System;
+﻿using HumbleFrameServer.Lib;
+using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Drawing;
-using HumbleFrameServer.Lib;
 
 namespace HumbleFrameServer.WAVELib
 {
@@ -19,12 +15,12 @@ namespace HumbleFrameServer.WAVELib
         public ushort ChannelsCount { get { return _wChannels; } }
 
 
-        private Dictionary<string, NodeParameter> _Parameters = new Dictionary<string, NodeParameter>() { 
+        private readonly Dictionary<string, NodeParameter> _Parameters = new() {
             {"samplepersecond", new NodeParameter(){
                 Type = NodeParameterType.Int,
                 IsRequired = false,
                 Value = 48000
-            }},    
+            }},
             {"bitpersample", new NodeParameter(){
                 Type = NodeParameterType.Int,
                 IsRequired = false,

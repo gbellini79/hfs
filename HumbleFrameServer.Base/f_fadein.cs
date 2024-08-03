@@ -1,13 +1,10 @@
-﻿using System;
+﻿using HumbleFrameServer.Lib;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Drawing;
 using System.Drawing.Imaging;
-using HumbleFrameServer.Lib;
-using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 
 namespace HumbleFrameServer.Base
 {
@@ -20,7 +17,7 @@ namespace HumbleFrameServer.Base
         private int _frames = 0;
         private bool _squared = true;
 
-        private Dictionary<string, NodeParameter> _Parameters = new Dictionary<string, NodeParameter>() { 
+        private readonly Dictionary<string, NodeParameter> _Parameters = new() {
             {"to", new NodeParameter(){
                 Type = NodeParameterType.AudioVideoStream,
                 IsRequired = true,
@@ -67,7 +64,7 @@ namespace HumbleFrameServer.Base
         private object Dissolve(Bitmap bmpTo, decimal Percentage)
         {
             double dPercentage = Convert.ToDouble(Percentage);
-            Bitmap bmpResult = new Bitmap(bmpTo.Width, bmpTo.Height, bmpTo.PixelFormat);
+            Bitmap bmpResult = new(bmpTo.Width, bmpTo.Height, bmpTo.PixelFormat);
 
             BitmapData lockTo = bmpTo.LockBits(new Rectangle(0, 0, bmpTo.Width, bmpTo.Height), ImageLockMode.ReadOnly, bmpTo.PixelFormat);
             byte[] rgbTo = new byte[bmpTo.Width * bmpTo.Height * Image.GetPixelFormatSize(bmpTo.PixelFormat) / 8];
@@ -147,7 +144,7 @@ namespace HumbleFrameServer.Base
 
             Color colorColor = (_Parameters["color"].Value as string).ToRGBAColor();
 
-            Bitmap _baseImg = new Bitmap(Convert.ToInt32(_to.Width), Convert.ToInt32(_to.Height), PixelFormat.Format32bppArgb);
+            Bitmap _baseImg = new(Convert.ToInt32(_to.Width), Convert.ToInt32(_to.Height), PixelFormat.Format32bppArgb);
             Graphics g = Graphics.FromImage(_baseImg);
             Brush colorBrush = new SolidBrush(colorColor);
             g.FillRectangle(colorBrush, new Rectangle(0, 0, _baseImg.Width, _baseImg.Height));

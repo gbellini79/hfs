@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using HumbleFrameServer.Lib;
+﻿using HumbleFrameServer.Lib;
 using MNGj;
-using System.IO;
+using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 
 namespace HumbleFrameServer
 {
@@ -14,7 +12,7 @@ namespace HumbleFrameServer
         public string NodeName { get { return "OpenMNG"; } }
         public string NodeDescription { get { return "Adds support for MAME MNG video files"; } }
 
-        private Dictionary<string, NodeParameter> _Parameters = new Dictionary<string, NodeParameter>() {
+        private readonly Dictionary<string, NodeParameter> _Parameters = new() {
             {"path", new NodeParameter(){
                 Type = NodeParameterType.String,
                 IsRequired = true
@@ -66,7 +64,7 @@ namespace HumbleFrameServer
             }
         }
 
-        private FileStream _mngIndex = null;
+        private readonly FileStream _mngIndex = null;
         private MNGStream _mngIn = null;
         private Bitmap _firstFrame = null;
         private uint _width = 0;
@@ -74,8 +72,8 @@ namespace HumbleFrameServer
 
         private void IndexMNG(string path)
         {
-            BinaryWriter indexOut = new BinaryWriter(File.Create(path + ".index"));
-            MNGStream localMNG = new MNGj.MNGStream(File.OpenRead(path));
+            BinaryWriter indexOut = new(File.Create(path + ".index"));
+            MNGStream localMNG = new(File.OpenRead(path));
 
             int frameCounter = 0;
             long framePosition = localMNG.GetNextFrameIndex();

@@ -1,11 +1,8 @@
-﻿using System;
+﻿using HumbleFrameServer.Lib;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Drawing;
-using HumbleFrameServer.Lib;
 
 namespace HumbleFrameServer.WAVELib
 {
@@ -204,7 +201,7 @@ namespace HumbleFrameServer.WAVELib
         }
 
 
-        private DataPacket _nextPacket = new DataPacket()
+        private DataPacket _nextPacket = new()
         {
             Type = PacketType.Audio
         };
@@ -231,7 +228,7 @@ namespace HumbleFrameServer.WAVELib
         #endregion
 
 
-        private Dictionary<string, NodeParameter> _Parameters = new Dictionary<string, NodeParameter>() {
+        private readonly Dictionary<string, NodeParameter> _Parameters = new() {
             { "path",
                 new NodeParameter(){
                     Type = NodeParameterType.String,

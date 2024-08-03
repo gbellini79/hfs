@@ -1,11 +1,7 @@
-﻿using System;
+﻿using HumbleFrameServer.Lib;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Drawing;
-using HumbleFrameServer.Lib;
-using System.Reflection;
 
 namespace HumbleFrameServer.Base
 {
@@ -16,11 +12,11 @@ namespace HumbleFrameServer.Base
 
         private int _framesLeft = -1;
 
-        private Dictionary<string, NodeParameter> _Parameters = new Dictionary<string, NodeParameter>() { 
+        private readonly Dictionary<string, NodeParameter> _Parameters = new() {
             {"path", new NodeParameter(){
                 Type = NodeParameterType.String,
                 IsRequired = true
-            }},    
+            }},
             {"frames", new NodeParameter(){
                 Type = NodeParameterType.Int,
                 IsRequired = false,

@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-//using HumbleFrameServer.WAVELib;
-using System.IO;
 using System.Drawing;
 using System.Drawing.Imaging;
+//using HumbleFrameServer.WAVELib;
+using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 
 
@@ -21,10 +19,10 @@ namespace HumbleFrameServer
 
     class OutputStream
     {
-        private BinaryWriter _outStream = null;
+        private readonly BinaryWriter _outStream = null;
 
-        private bool _hasVideo;
-        private bool _hasAudio;
+        private readonly bool _hasVideo;
+        private readonly bool _hasAudio;
         private WriteType _lastWriteType = WriteType.Undefined;
 
         //Video
@@ -228,7 +226,7 @@ namespace HumbleFrameServer
                         break;
                     case 16:
                         //_outStream.Write(_audioBuffer.Count * _audioBuffer[0].Length * 2);
-                        _outStream.Write((int)_audioBuffer.Select(x => x.Length).Sum() * 2);
+                        _outStream.Write(_audioBuffer.Select(x => x.Length).Sum() * 2);
                         for (int b = 0; b < _audioBuffer.Count; b++)
                         {
                             for (int s = 0; s < _audioBuffer[b].Length; s++)

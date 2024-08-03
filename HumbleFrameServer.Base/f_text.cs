@@ -1,13 +1,9 @@
-﻿using System;
+﻿using HumbleFrameServer.Lib;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Drawing;
 using System.Drawing.Imaging;
-using HumbleFrameServer.Lib;
-using System.Reflection;
-using System.Runtime.InteropServices;
+using System.Linq;
 
 namespace HumbleFrameServer.Base
 {
@@ -30,7 +26,7 @@ namespace HumbleFrameServer.Base
         public string NodeDescription { get { return "Write text"; } }
         public NodeType Type { get { return NodeType.Filter; } }
 
-        private Dictionary<string, NodeParameter> _Parameters = new Dictionary<string, NodeParameter>() {
+        private readonly Dictionary<string, NodeParameter> _Parameters = new() {
             {"video", new NodeParameter(){
                 Type = NodeParameterType.AudioVideoStream,
                 IsRequired = true,
@@ -143,7 +139,7 @@ namespace HumbleFrameServer.Base
 
                 if (_frameCount >= _firstframe)
                 {
-                    Bitmap resultBitmap = new Bitmap(Convert.ToInt32(_bgvideo.Width), Convert.ToInt32(_bgvideo.Height), PixelFormat.Format32bppArgb);
+                    Bitmap resultBitmap = new(Convert.ToInt32(_bgvideo.Width), Convert.ToInt32(_bgvideo.Height), PixelFormat.Format32bppArgb);
                     Bitmap bgFrame = result.Data as Bitmap;
 
                     Graphics texter = Graphics.FromImage(resultBitmap);
@@ -154,7 +150,7 @@ namespace HumbleFrameServer.Base
                         if (_frameCount >= _timerstartframe && _frameCount <= _timerstopframe)
                         {
                             int currentMilli = Math.Max(0, Convert.ToInt32(Math.Floor(((_frameCount - this._timerstartframe) * 1000) / _bgvideo.FPS * 1.0m)));
-                            TimeSpan timeSpan = new TimeSpan(0, 0, 0, 0, currentMilli);
+                            TimeSpan timeSpan = new(0, 0, 0, 0, currentMilli);
                             _text = _showHH ? $"{timeSpan:hh\\:mm\\:ss\\.fff}" : $"{timeSpan:mm\\:ss\\.fff}";
                         }
                     }
@@ -203,10 +199,10 @@ namespace HumbleFrameServer.Base
                 bool fontUnderline = (bool)_Parameters["underline"].Value;
 
                 FontStyle newFS = FontStyle.Regular;
-                if (fontBold) newFS = newFS | FontStyle.Bold;
-                if (fontItalic) newFS = newFS | FontStyle.Italic;
-                if (fontStrikeout) newFS = newFS | FontStyle.Strikeout;
-                if (fontUnderline) newFS = newFS | FontStyle.Underline;
+                if (fontBold) newFS |= FontStyle.Bold;
+                if (fontItalic) newFS |= FontStyle.Italic;
+                if (fontStrikeout) newFS |= FontStyle.Strikeout;
+                if (fontUnderline) newFS |= FontStyle.Underline;
 
                 if (FontFamily.Families.Count(x => x.Name == fontFamily) > 0)
                 {

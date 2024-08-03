@@ -1,11 +1,6 @@
-﻿using System;
+﻿using HumbleFrameServer.Lib;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Drawing;
-using HumbleFrameServer.Lib;
-using System.Reflection;
 
 namespace HumbleFrameServer.Base
 {
@@ -14,11 +9,11 @@ namespace HumbleFrameServer.Base
         public string NodeName { get { return "AudioDub"; } }
         public string NodeDescription { get { return "Adds audio to a video stream"; } }
 
-        private Dictionary<string, NodeParameter> _Parameters = new Dictionary<string, NodeParameter>() { 
+        private readonly Dictionary<string, NodeParameter> _Parameters = new() {
             {"video", new NodeParameter(){
                 Type = NodeParameterType.AudioVideoStream,
                 IsRequired = true
-            }},    
+            }},
             {"audio", new NodeParameter(){
                 Type = NodeParameterType.AudioVideoStream,
                 IsRequired = true

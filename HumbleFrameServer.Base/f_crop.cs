@@ -1,13 +1,7 @@
-﻿using System;
+﻿using HumbleFrameServer.Lib;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Drawing;
-using System.Drawing.Imaging;
-using HumbleFrameServer.Lib;
-using System.Reflection;
-using System.Runtime.InteropServices;
 
 namespace HumbleFrameServer.Base
 {
@@ -23,7 +17,7 @@ namespace HumbleFrameServer.Base
         public string NodeDescription { get { return "Crop video"; } }
         public NodeType Type { get { return NodeType.Filter; } }
 
-        private Dictionary<string, NodeParameter> _Parameters = new Dictionary<string, NodeParameter>() {
+        private readonly Dictionary<string, NodeParameter> _Parameters = new() {
             {"input", new NodeParameter(){
                 Type = NodeParameterType.AudioVideoStream,
                 IsRequired = true,
@@ -64,7 +58,7 @@ namespace HumbleFrameServer.Base
             if (result.Data != null && result.Type == PacketType.Video)
             {
                 Bitmap originalFrame = result.Data as Bitmap;
-                Bitmap croppedFrame = new Bitmap(_newWidth, _newHeight, originalFrame.PixelFormat);
+                Bitmap croppedFrame = new(_newWidth, _newHeight, originalFrame.PixelFormat);
 
                 //Crop
                 Graphics cropper = Graphics.FromImage(croppedFrame);

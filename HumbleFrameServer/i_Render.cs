@@ -1,11 +1,7 @@
-﻿using System;
+﻿using HumbleFrameServer.Lib;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Drawing;
-using HumbleFrameServer.Lib;
-using System.Reflection;
 
 namespace HumbleFrameServer.Base
 {
@@ -36,7 +32,7 @@ namespace HumbleFrameServer.Base
 
         public bool canSeek { get; private set; } = false;
 
-        private Dictionary<string, NodeParameter> _Parameters = new Dictionary<string, NodeParameter>();
+        private readonly Dictionary<string, NodeParameter> _Parameters = [];
         public Dictionary<string, NodeParameter> Parameters
         {
             get { return _Parameters; }
@@ -62,7 +58,7 @@ namespace HumbleFrameServer.Base
                         iAudioVideoStream currentRow = currParam.Value as iAudioVideoStream;
                         if (lastParam != null && !lastParam.AsVariable && currentRow != null)
                         {
-                            List<KeyValuePair<string, NodeParameter>> firstAudioVideo = new List<KeyValuePair<string, NodeParameter>>(currentRow.Parameters.Where(x => x.Value.Type == NodeParameterType.AudioVideoStream && x.Value.Value == null && x.Value.IsRequired));
+                            List<KeyValuePair<string, NodeParameter>> firstAudioVideo = new(currentRow.Parameters.Where(x => x.Value.Type == NodeParameterType.AudioVideoStream && x.Value.Value == null && x.Value.IsRequired));
                             if (firstAudioVideo.Count > 0)
                             {
                                 firstAudioVideo[0].Value.Value = lastParam.Value;

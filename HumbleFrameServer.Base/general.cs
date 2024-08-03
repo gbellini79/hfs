@@ -1,10 +1,6 @@
 ﻿using HumbleFrameServer.Lib;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HumbleFrameServer.Base
 {
@@ -12,7 +8,7 @@ namespace HumbleFrameServer.Base
     {
         public static string Right(this string Text, int Length)
         {
-            return Text.Substring(Text.Length - Length);
+            return Text[^Length..];
         }
 
         public static Color ToRGBAColor(this string colorString)
