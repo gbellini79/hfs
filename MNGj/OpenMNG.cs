@@ -1,11 +1,11 @@
-﻿using HumbleFrameServer.Lib;
+﻿using HFS.Lib;
 using MNGj;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 
-namespace HumbleFrameServer
+namespace HFS
 {
     public class OpenMNG : iAudioVideoStream
     {

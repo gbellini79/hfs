@@ -1,10 +1,10 @@
-﻿using HumbleFrameServer.Lib;
+﻿using HFS.Lib;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace HumbleFrameServer.WAVELib
+namespace HFS.WAVELib
 {
     public class OpenWAVE : WAVEStream, iAudioVideoStream
     {

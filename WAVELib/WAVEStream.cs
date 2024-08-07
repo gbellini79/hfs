@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HumbleFrameServer.WAVELib
+namespace HFS.WAVELib
 {
     public class WAVEStream
     {

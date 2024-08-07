@@ -4,20 +4,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>MNGj</RootNamespace>
     <AssemblyName>MNGj</AssemblyName>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <OutputPath>..\HumbleFrameServer\bin\Debug\Plugins\</OutputPath>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <OutputPath>..\HumbleFrameServer\bin\Release\Plugins\</OutputPath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
-    <OutputPath>..\HumbleFrameServer\bin\x64\Debug\Plugins\</OutputPath>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
-    <OutputPath>..\HumbleFrameServer\bin\x64\Release\Plugins\</OutputPath>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
   <ItemGroup>
     <Reference Update="System.Core">
@@ -32,6 +19,6 @@
     <PackageReference Include="System.Drawing.Common" Version="8.0.7" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HumbleFrameServer.Lib\HumbleFrameServer.Lib.csproj" />
+    <ProjectReference Include="..\HFS.Lib\HFS.Lib.csproj" />
   </ItemGroup>
 </Project>

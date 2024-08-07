@@ -1,7 +1,7 @@
 <Project>
   <PropertyGroup>
-    <Version>0.9.3</Version>
-    <InformationalVersion>WAAAAAV</InformationalVersion>
+    <Version>0.9.4</Version>
+    <InformationalVersion>5 years later...</InformationalVersion>
 
     <Copyright>Giacomo Bellini © 2024</Copyright>
     <ProductName>HFS</ProductName>

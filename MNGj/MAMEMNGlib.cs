@@ -222,27 +222,15 @@ namespace MNGj
             curr_chunk_Data = _MNGStream.ReadBytes((int)curr_chunk_Len);
             curr_chunk_CRC = Utils.ReadUInt32NBO(_MNGStream.ReadBytes(4));
 
-            switch (curr_chunk_Name)
+            return curr_chunk_Name switch
             {
-                case "MHDR":
-                    return MNGChunkTypes.MHDR;
-                    break;
-                case "IHDR":
-                    return MNGChunkTypes.IHDR;
-                    break;
-                case "IDAT":
-                    return MNGChunkTypes.IDAT;
-                    break;
-                case "IEND":
-                    return MNGChunkTypes.IEND;
-                    break;
-                case "MEND":
-                    return MNGChunkTypes.MEND;
-                    break;
-                default:
-                    return MNGChunkTypes.Error;
-                    break;
-            }
+                "MHDR" => MNGChunkTypes.MHDR,
+                "IHDR" => MNGChunkTypes.IHDR,
+                "IDAT" => MNGChunkTypes.IDAT,
+                "IEND" => MNGChunkTypes.IEND,
+                "MEND" => MNGChunkTypes.MEND,
+                _ => MNGChunkTypes.Error,
+            };
         }
 
         /// <summary>

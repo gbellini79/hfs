@@ -1,6 +1,0 @@
-﻿@a = openimage(path="examples\leonardo.jpg",fps=60,frames=200);
-text(text="Humble Frame Server",font="Verdana",size=25,posx=10,posy=20,firstframe=10,color="#ffff00ff");
-text(text="Humble Frame Server",font="Verdana",size=25,posx=10,posy=50,firstframe=10,color="#ffff00cc",italic=true);
-text(text="Humble Frame Server",font="Verdana",size=25,posx=10,posy=80,firstframe=10,color="#ffff0099",strikeout=true);
-text(text="Humble Frame Server",font="Verdana",size=25,posx=10,posy=110,firstframe=10,color="#ffff0066",underline=true);
-text(text="Humble Frame Server",font="Verdana",size=25,posx=10,posy=140,firstframe=10,color="#0000ff33",bold=true);

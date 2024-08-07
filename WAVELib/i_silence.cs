@@ -1,9 +1,9 @@
-﻿using HumbleFrameServer.Lib;
+﻿using HFS.Lib;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace HumbleFrameServer.WAVELib
+namespace HFS.WAVELib
 {
     public class Silence : WAVEStream, iAudioVideoStream
     {

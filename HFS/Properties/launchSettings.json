@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "HFS": {
+      "commandName": "Project",
+      "commandLineArgs": "-fl"
+    }
+  }
+}
