@@ -46,7 +46,7 @@ HFS has to be run from the command line where you can specify:
   - ```-```: pipe
   - ```null```: the text "null" simply discard the result. Used for debugging purpose
 
-Example: ```hfs -i test.hum -o - | ffmpeg -i - progear.mp4```
+Example: ```hfs -i test.hum -o - | ffmpeg -i - -shortest progear.mp4```
 
 ## Scripting
 To use HFS, you'll need to provide a 'hum' script, a simple text file that lists the video and audio files you want to process and tells HFS what to do with them.
