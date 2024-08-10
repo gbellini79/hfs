@@ -582,7 +582,12 @@ namespace HFS
     {
         static void Main(string[] args)
         {
+#if DEBUG
+            Debugger.Launch();
+#endif
+
             _ = new Humfs(args);
+
             if (Debugger.IsAttached)
             {
                 Console.WriteLine("Press any key");
