@@ -90,12 +90,6 @@ Parameters:
 - frames (Int)
 - color (String)
 
-##### ``OpenFFMPEG``
-Loads a video using FFMPEG
-Parameters:
-- path (String)
-- frames (Int)
-
 ##### ``OpenImage``
 Loads an image and repeat it for the specified number of frames
 Parameters:

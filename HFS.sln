@@ -12,8 +12,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HFS.Lib", "HFS.Lib\HFS.Lib.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HFS.Base", "HFS.Base\HFS.Base.csproj", "{FD9DD052-BABF-4264-A197-21FBE192B64C}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FFMPEG_Cli", "FFMPEG_Cli\FFMPEG_Cli.vcxproj", "{1518399F-E158-4E4D-9FF0-0EFAD02C59E0}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A450A693-523D-480D-AA69-5D098DBF5102}"
 	ProjectSection(SolutionItems) = preProject
 		Directory.Build.props = Directory.Build.props
@@ -68,10 +66,6 @@ Global
 		{FD9DD052-BABF-4264-A197-21FBE192B64C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FD9DD052-BABF-4264-A197-21FBE192B64C}.Release|x64.ActiveCfg = Release|x64
 		{FD9DD052-BABF-4264-A197-21FBE192B64C}.Release|x64.Build.0 = Release|x64
-		{1518399F-E158-4E4D-9FF0-0EFAD02C59E0}.Debug|Any CPU.ActiveCfg = Debug|Win32
-		{1518399F-E158-4E4D-9FF0-0EFAD02C59E0}.Debug|x64.ActiveCfg = Debug|x64
-		{1518399F-E158-4E4D-9FF0-0EFAD02C59E0}.Release|Any CPU.ActiveCfg = Release|Win32
-		{1518399F-E158-4E4D-9FF0-0EFAD02C59E0}.Release|x64.ActiveCfg = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
