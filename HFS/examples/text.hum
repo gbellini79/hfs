@@ -1,4 +1,4 @@
-﻿@a = openimage(path="examples\leonardo.jpg",fps=60,frames=200);
+﻿openimage(path="examples\leonardo.jpg",fps=60,frames=200);
 text(text="HFS!",font="Verdana",size=25,posx=10,posy=20,firstframe=10,color="#ffff00ff");
 text(text="HFS!",font="Verdana",size=25,posx=10,posy=50,firstframe=10,color="#ffff00cc",italic=true);
 text(text="HFS!",font="Verdana",size=25,posx=10,posy=80,firstframe=10,color="#ffff0099",strikeout=true);

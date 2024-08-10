@@ -1,8 +1,8 @@
 ﻿#opens video.mng and store it in the variable @video
-@video=openmng(path="video.mng");
+@video=openmng(path="test.mng");
 
 #opens audio.wav
-openwave(path="audio.wav");
+openwave(path="test.wav");
 
 #combines audio and video
 audiodub(video=@video);

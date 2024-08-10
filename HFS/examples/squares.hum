@@ -22,4 +22,4 @@ blank(width=880, height=440, frames=1200, fps=60,color="#ffffffff");
 overlay(fgvideo=@bgr,posx=0,   posy=0);
 overlay(fgvideo=@bgl,posx=440, posy=0);
  
-
+Counter();

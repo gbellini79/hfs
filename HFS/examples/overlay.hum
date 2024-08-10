@@ -1,0 +1,12 @@
+﻿@q1 = blank(width=200,height=200,color="#ff00007f",frames=600,fps=60);
+@q2 = blank(width=200,height=200,color="#00ff007f",frames=600,fps=60);
+@q3 = blank(width=200,height=200,color="#0000ff7f",frames=600,fps=60);
+openimage(path="examples\leonardo.jpg",fps=60,frames=600);
+@q4 = resize(width=200,height=200,mode="lanczos");
+
+openimage(path="examples\vitruvio.jpg",fps=60,frames=600);
+resize(width=400,height=400,mode="lanczos");
+overlay(fgvideo=@q1,posx=0,posy=0);
+overlay(fgvideo=@q2,posx=200,posy=0);
+overlay(fgvideo=@q3,posx=0,posy=200);
+overlay(fgvideo=@q4,posx=200,posy=200);

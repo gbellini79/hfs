@@ -1,6 +1,0 @@
-﻿openffmpeg(path="d:\GoogleDrive\AEX\grafica\avengers_top score_60.mp4");
-
-#Counter();
-
-#text(firstframe=0, istimer=true, timerstartframe=120, timerstopframe=480, posx=100, posy=100, color="#ffffffff");
-

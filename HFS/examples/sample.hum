@@ -1,32 +1,18 @@
-﻿#openffmpeg(path="C:\tmp\0001-0360.avi",fps=60);
-#@introvideo = resize(width=960,height=720);
-#silence(samplepersecond=48000,channels=2,bitpersample=16);
-#@intro=audiodub(video=@introvideo);
+﻿openimage(path="examples\leonardo.jpg,fps=60,frames=360);
+@introvideo = resize(width=960,height=720,mode="lanczos");
+silence(samplepersecond=48000,channels=2,bitpersample=16);
+@intro=audiodub(video=@introvideo);
 
+#openmng(path="input.mng");
+openimage(path="examples\vitruvio.jpg",fps=60,frames=1000);
+@mainvideo=resize(width=960,height=720);
+openwave(path="examples\music.wav");
+audiodub(video=@mainvideo);
+@main=trim(firstframe=100, length=800);
 
-#openimage(path="E:\Video\aex\video_intro_2016.png",fps=60,frames=360);
-#@introvideo = resize(width=960,height=720);
+dissolve(from=@intro, to=@main,frames=120);
 
+counter();
 
-#silence(samplepersecond=48000,channels=2,bitpersample=16);
-#@intro=audiodub(video=@introvideo);
-#
-#
-openmng(path="E:\Video\diehard.mng");
-#@video=resize(width=960,height=720);
-#@audio = openwave(path="E:\Video\diehard.wav");
-#@audiovideo = audiodub(video=@video, audio=@audio);
-##@video = trim(firstframe=2500,length=1500);
-#
-#
-#dissolve(from=@intro, to=@audiovideo,frames=60);
-##
-##
-#fadein(frames=60);
-#fadeout(frames=60);
-##
-###
-#
-##trim(firstframe=30000);
-
-#Counter();
+fadein(frames=60);
+fadeout(frames=60);
