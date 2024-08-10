@@ -4,7 +4,7 @@ using System.Drawing;
 
 namespace HFS.Base
 {
-    public static class general
+    public static class CommonExtensions
     {
         public static string Right(this string Text, int Length)
         {

@@ -102,7 +102,7 @@ namespace HFS.Base
             {"istimer", new NodeParameter(){
                 Type = NodeParameterType.Bool,
                 IsRequired = false,
-                Value = 0,
+                Value = false,
                 Description="Show a timer (false)"
             }},
             {"timerstartframe", new NodeParameter(){

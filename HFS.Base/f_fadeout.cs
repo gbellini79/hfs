@@ -189,18 +189,12 @@ namespace HFS.Base
 
             if (_from.hasAudio)
             {
-                switch (this.BitsPerSample)
+                _baseSilence = this.BitsPerSample switch
                 {
-                    case 8:
-                        _baseSilence = 0x80;
-                        break;
-                    case 16:
-                        _baseSilence = 0;
-                        break;
-                    default:
-                        throw new NotSupportedException(string.Format("{0}bits audio not supported.", this.BitsPerSample));
-                        break;
-                }
+                    8 => 0x80,
+                    16 => 0,
+                    _ => throw new NotSupportedException(string.Format("{0}bits audio not supported.", this.BitsPerSample)),
+                };
             }
         }
 

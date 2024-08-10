@@ -191,10 +191,8 @@ namespace HFS.WAVELib
                     //Signed 2'S values from 0xFF800000 to 0x007FFFFF
                     result = new int[inSample.Length / 4];
                     throw new NotImplementedException(string.Format("{0}bit audio is unsupported", _wBitsPerSample));
-                    break;
                 default:
                     throw new NotImplementedException(string.Format("{0}bit audio is unsupported", _wBitsPerSample));
-                    break;
             }
 
             return result;

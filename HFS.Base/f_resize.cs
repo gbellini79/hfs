@@ -59,18 +59,13 @@ namespace HFS.Base
                     //Resize
                     Graphics rescaler = Graphics.FromImage(scaledFrame);
                     rescaler.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
-                    switch (_resizeMode)
+
+                    rescaler.InterpolationMode = _resizeMode switch
                     {
-                        case "resize":
-                            rescaler.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
-                            break;
-                        case "lanczos":
-                            rescaler.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
-                            break;
-                        default:
-                            throw new Exception("Resize: unknown resize mode \"" + _resizeMode + "\"");
-                            break;
-                    }
+                        "resize" => System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor,
+                        "lanczos" => System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic,
+                        _ => throw new Exception("Resize: unknown resize mode \"" + _resizeMode + "\""),
+                    };
 
                     rescaler.DrawImage(originalFrame, 0, 0, _newWidth, _newHeight);
 
