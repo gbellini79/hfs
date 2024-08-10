@@ -14,7 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Improved example scripts
 
 ### Fixed
-- crash if "text" filter's "istimer" parameter is not specified
+- crash if "istimer" parameter of "text" filter is not specified
 
 ---
 ## [0.9.3] - 2019-10-19
