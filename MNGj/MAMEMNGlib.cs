@@ -1,4 +1,5 @@
 using System;
+using System.Buffers.Binary;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -286,9 +287,7 @@ namespace MNGj
         {
             if (intBuffer.Length == 4)
             {
-                //return intBuffer[3] + (intBuffer[2] * 256) + (intBuffer[1] * 4096) + (intBuffer[0] * 65536);
-
-                return uint.Parse(string.Format("{0,2:x}{1,2:x}{2,2:x}{3,2:x}", intBuffer[0], intBuffer[1], intBuffer[2], intBuffer[3]).Replace(' ', '0'), System.Globalization.NumberStyles.HexNumber);
+                return BinaryPrimitives.ReverseEndianness(BitConverter.ToUInt32(intBuffer));
             }
             else
             {
@@ -298,25 +297,12 @@ namespace MNGj
 
         public static byte[] WriteUInt32NBO(uint intNumber)
         {
-            byte[] newArray = new byte[4];
-
-            string newHex = string.Format("{0,8:x}", intNumber).Replace(' ', '0');
-
-            newArray[0] = byte.Parse(newHex[..2], System.Globalization.NumberStyles.HexNumber);
-            newArray[1] = byte.Parse(newHex.Substring(2, 2), System.Globalization.NumberStyles.HexNumber);
-            newArray[2] = byte.Parse(newHex.Substring(4, 2), System.Globalization.NumberStyles.HexNumber);
-            newArray[3] = byte.Parse(newHex.Substring(6, 2), System.Globalization.NumberStyles.HexNumber);
-
-            return newArray;
+            return BitConverter.GetBytes(BinaryPrimitives.ReverseEndianness(intNumber));
         }
 
         public static byte[] GetBytes(byte[] byteArray, int startFrom, int Len)
         {
-            byte[] newArray = new byte[Len];
-            for (int nI = 0; nI < Len; nI++)
-                newArray[nI] = byteArray[nI + startFrom];
-
-            return newArray;
+            return byteArray[startFrom..(startFrom + Len)];
         }
     }
 
