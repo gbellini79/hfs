@@ -155,7 +155,6 @@ namespace HFS.WAVELib
             _waveStreamReader.Close();
         }
 
-
         /// <summary>
         /// Return 
         /// </summary>
@@ -176,20 +175,15 @@ namespace HFS.WAVELib
                     //Signed 2'S values from 0x8000 to 0xEFFF
                     result = new int[inSample.Length / 2];
 
-                    Parallel.For(0, inSample.Length / 2, i =>
+                    for (int i = 0; i < inSample.Length / 2; i++)
                     {
-                        int b = i * 2;
-                        result[i] = (short)(inSample[b + 1] * 256 + inSample[b]);
-                    });
+                        result[i] = BitConverter.ToInt16(inSample, i * 2);
+                    }
 
-                    //for (int b = 0; b < inSample.Length; b += 2)
-                    //{
-                    //    result[b / 2] = (short)(inSample[b + 1] * 256 + inSample[b]);
-                    //}
                     break;
                 case 24:
                     //Signed 2'S values from 0xFF800000 to 0x007FFFFF
-                    result = new int[inSample.Length / 4];
+                    //result = new int[inSample.Length / 4];
                     throw new NotImplementedException(string.Format("{0}bit audio is unsupported", _wBitsPerSample));
                 default:
                     throw new NotImplementedException(string.Format("{0}bit audio is unsupported", _wBitsPerSample));
