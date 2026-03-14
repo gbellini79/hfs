@@ -534,20 +534,13 @@ namespace HFS
         private void Begin()
         {
             _render.openStream();
-            OutputStream outFile;
 
-            switch (_outputPath)
+            OutputStream outFile = _outputPath switch
             {
-                case "-":
-                    outFile = new OutputStream(Console.OpenStandardOutput(), _render.hasVideo, _render.hasAudio);
-                    break;
-                case "null":
-                    outFile = new OutputStream(new NullStream(), _render.hasVideo, _render.hasAudio);
-                    break;
-                default:
-                    outFile = new OutputStream(File.Create(_outputPath), _render.hasVideo, _render.hasAudio);
-                    break;
-            }
+                "-" => new OutputStream(Console.OpenStandardOutput(), _render.hasVideo, _render.hasAudio),
+                "null" => new OutputStream(new NullStream(), _render.hasVideo, _render.hasAudio),
+                _ => new OutputStream(File.Create(_outputPath), _render.hasVideo, _render.hasAudio),
+            };
 
             outFile.initStream(_render.FPS, _render.Width, _render.Height, _render.SamplesPerSecond, _render.ChannelsCount, _render.BitsPerSample);
 

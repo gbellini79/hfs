@@ -8,6 +8,6 @@
     <ProjectReference Include="..\HFS.Lib\HFS.Lib.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="System.Drawing.Common" Version="8.0.7" />
+    <PackageReference Include="System.Drawing.Common" Version="10.0.5" />
   </ItemGroup>
 </Project>

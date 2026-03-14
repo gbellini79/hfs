@@ -17,7 +17,7 @@
     <Content Include="Portable Network Graphics %28PNG%29 Specification %28Second Edition%29.htm" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="System.Drawing.Common" Version="8.0.7" />
+    <PackageReference Include="System.Drawing.Common" Version="10.0.5" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HFS.Lib\HFS.Lib.csproj" />
