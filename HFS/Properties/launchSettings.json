@@ -3,6 +3,10 @@
     "HFS": {
       "commandName": "Project",
       "commandLineArgs": "-fl"
+    },
+    "template": {
+      "commandName": "Project",
+      "commandLineArgs": "-i \"N:\\altro\\template.hum\" -o C:\\download\\temp\\fuffa\\pre.avi\""
     }
   }
 }

@@ -1,9 +1,9 @@
 <Project>
   <PropertyGroup>
-    <Version>0.10.1</Version>
-    <InformationalVersion>5 years later...</InformationalVersion>
+    <Version>0.11.0</Version>
+    <InformationalVersion>Speed!</InformationalVersion>
 
-    <Copyright>Giacomo Bellini © 2024</Copyright>
+    <Copyright>Giacomo Bellini © 2026</Copyright>
     <ProductName>HFS</ProductName>
     <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
     <LangVersion>latest</LangVersion>

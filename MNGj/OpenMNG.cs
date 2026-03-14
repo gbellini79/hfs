@@ -1,4 +1,4 @@
-﻿using HFS.Lib;
+using HFS.Lib;
 using MNGj;
 using System;
 using System.Collections.Generic;
@@ -42,39 +42,27 @@ namespace HFS
             get { return _height; }
         }
 
-        bool _isFirstFrame = true;
         public DataPacket getNextPacket()
         {
-            if (_isFirstFrame)
+            DataPacket packet = new DataPacket()
             {
-                _isFirstFrame = false;
-                return new DataPacket()
-                {
-                    Type = PacketType.Video,
-                    Data = _firstFrame
-                };
-            }
-            else
-            {
-                return new DataPacket()
-                {
-                    Type = PacketType.Video,
-                    Data = _mngIn.GetNextFrame()
-                };
-            }
+                Type = PacketType.Video,
+                Data = _mngIn.GetNextFrame()
+            };
+            return packet;
         }
 
-        private readonly FileStream _mngIndex = null;
+        private FileStream _mngIndex = null;
         private MNGStream _mngIn = null;
-        private Bitmap _firstFrame = null;
         private uint _width = 0;
         private uint _height = 0;
 
         private void IndexMNG(string path)
         {
-            BinaryWriter indexOut = new(File.Create(path + ".index"));
-            MNGStream localMNG = new(File.OpenRead(path));
-
+            using FileStream fs = File.OpenRead(path);
+            using MNGStream localMNG = new(fs);
+            using FileStream os = File.Create(path + ".index");
+            using BinaryWriter indexOut = new(os);
             int frameCounter = 0;
             long framePosition = localMNG.GetNextFrameIndex();
             while (framePosition > -1)
@@ -85,15 +73,13 @@ namespace HFS
                 framePosition = localMNG.GetNextFrameIndex();
                 frameCounter++;
             }
-
-            localMNG._MNGStream.Close();
-            indexOut.Close();
         }
 
         public void openStream()
         {
             string path = _Parameters["path"].Value.ToString();
-            _mngIn = new MNGj.MNGStream(File.OpenRead(path));
+            FileStream fs = File.OpenRead(path);
+            _mngIn = new MNGj.MNGStream(fs);
 
             _FPS = (decimal)_Parameters["fps"].Value;
             if (_FPS == 0M)
@@ -101,9 +87,8 @@ namespace HFS
                 _FPS = Convert.ToDecimal(_mngIn.FrameRate);
             }
 
-            _firstFrame = _mngIn.GetNextFrame();
-            _width = Convert.ToUInt32(_firstFrame.Width);
-            _height = Convert.ToUInt32(_firstFrame.Height);
+            _width = _mngIn.MHDR_Chunk.Frame_width;
+            _height = _mngIn.MHDR_Chunk.Frame_height;
 
             //Indexing
             //if (File.Exists(path + ".index"))
@@ -123,8 +108,16 @@ namespace HFS
         public void closeStream()
         {
             if (_mngIndex != null)
+            {
                 _mngIndex.Close();
-            _mngIn._MNGStream.Close();
+                _mngIndex = null;
+            }
+
+            if (_mngIn != null)
+            {
+                _mngIn.Dispose();
+                _mngIn = null;
+            }
         }
 
         public NodeType Type
