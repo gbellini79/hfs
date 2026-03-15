@@ -19,6 +19,7 @@ namespace HFS
     class OutputStream
     {
         private readonly BinaryWriter _outStream = null;
+        private readonly BufferedStream _bufferedStream = null;
 
         private readonly bool _hasVideo;
         private readonly bool _hasAudio;
@@ -47,7 +48,8 @@ namespace HFS
 
         public OutputStream(Stream outStream, bool HasVideo, bool HasAudio)
         {
-            _outStream = new BinaryWriter(outStream);
+            _bufferedStream = new(outStream, 1024 * 1024 * 2);
+            _outStream = new BinaryWriter(_bufferedStream);
 
             _hasVideo = HasVideo;
             _hasAudio = HasAudio;
@@ -191,7 +193,10 @@ namespace HFS
 
         public void Close()
         {
-            _outStream.Close();
+            try { _outStream?.Close(); }
+            catch
+            {
+            }
         }
 
         private List<int[]> _audioBuffer;
@@ -261,24 +266,15 @@ namespace HFS
     public class NullStream : Stream
     {
 
-        public override bool CanRead
-        {
-            get { throw new NotImplementedException(); }
-        }
+        public override bool CanRead => false;
 
-        public override bool CanSeek
-        {
-            get { throw new NotImplementedException(); }
-        }
+        public override bool CanSeek => false;
 
-        public override bool CanWrite
-        {
-            get { return true; }
-        }
+        public override bool CanWrite => true;
 
         public override void Flush()
         {
-            throw new NotImplementedException();
+            //do nothing
         }
 
         public override long Length
