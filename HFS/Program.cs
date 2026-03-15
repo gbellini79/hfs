@@ -1,4 +1,4 @@
-﻿#if DEBUG
+#if DEBUG
 #define NOBUBBLE
 #endif
 
@@ -548,19 +548,29 @@ namespace HFS
 
             Stopwatch sw = new();
             sw.Start();
-            while ((currentPacket = _render.getNextPacket()) != null && currentPacket.Data != null)
+
+            bool isError = false;
+            while ((currentPacket = _render.getNextPacket()) != null && currentPacket.Data != null && !isError)
             {
-                switch (currentPacket.Type)
+                try
                 {
-                    case PacketType.Audio:
-                        outFile.WriteAudioSample((int[])currentPacket.Data);
-                        break;
-                    case PacketType.Video:
-                        outFile.WriteVideoFrame((Bitmap)currentPacket.Data);
-                        break;
-                    default:
-                        throw new NotImplementedException();
-                        //break;
+                    switch (currentPacket.Type)
+                    {
+                        case PacketType.Audio:
+                            outFile.WriteAudioSample((int[])currentPacket.Data);
+                            break;
+                        case PacketType.Video:
+                            outFile.WriteVideoFrame((Bitmap)currentPacket.Data);
+                            break;
+                        default:
+                            throw new NotImplementedException();
+                            //break;
+                    }
+                }
+                catch (Exception eX)
+                {
+                    Console.WriteLine(eX.Message);
+                    isError = true;
                 }
             }
 
